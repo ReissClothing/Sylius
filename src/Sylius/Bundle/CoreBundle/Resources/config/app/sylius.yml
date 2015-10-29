@@ -65,14 +65,14 @@ sylius_cart:
 
 sylius_settings: ~
 
-sylius_content:
-    driver: doctrine/phpcr-odm
-    resources:
-        static_content:
-            classes:
-                repository: Sylius\Bundle\ContentBundle\Doctrine\ODM\PHPCR\StaticContentRepository
-                form:
-                    choice: Sylius\Bundle\ContentBundle\Form\Type\StaticContentChoiceType
+#sylius_content:
+#    driver: doctrine/phpcr-odm
+#    resources:
+#        static_content:
+#            classes:
+#                repository: Sylius\Bundle\ContentBundle\Doctrine\ODM\PHPCR\StaticContentRepository
+#                form:
+#                    choice: Sylius\Bundle\ContentBundle\Form\Type\StaticContentChoiceType
 
 sylius_taxonomy:
     resources:
@@ -199,7 +199,7 @@ sylius_payment:
     gateways:
         offline: Offline
 
-sylius_payum: ~
+#sylius_payum: ~
 
 sylius_addressing:
     scopes:

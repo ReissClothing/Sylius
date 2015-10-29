@@ -25,36 +25,36 @@ knp_gaufrette:
         sylius_image:
             adapter: %sylius.uploader.filesystem%
 
-liip_imagine:
-    loaders:
-        default:
-            filesystem:
-                data_root: %kernel.root_dir%/../web/media/image
-    filter_sets:
-        sylius_small:
-            filters:
-                thumbnail: { size: [120, 90], mode: outbound }
-        sylius_medium:
-            filters:
-                thumbnail: { size: [240, 180], mode: outbound }
-        sylius_large:
-            filters:
-                thumbnail: { size: [640, 480], mode: outbound }
+#liip_imagine:
+#    loaders:
+#        default:
+#            filesystem:
+#                data_root: %kernel.root_dir%/../web/media/image
+#    filter_sets:
+#        sylius_small:
+#            filters:
+#                thumbnail: { size: [120, 90], mode: outbound }
+#        sylius_medium:
+#            filters:
+#                thumbnail: { size: [240, 180], mode: outbound }
+#        sylius_large:
+#            filters:
+#                thumbnail: { size: [640, 480], mode: outbound }
 
-knp_snappy:
-    pdf:
-        enabled:    true
-        binary:     %wkhtmltopdf.bin_path%
-        options:    []
-    image:
-        enabled:    true
-        binary:     %wkhtmltoimage.bin_path%
-        options:    []
+#knp_snappy:
+#    pdf:
+#        enabled:    true
+#        binary:     %wkhtmltopdf.bin_path%
+#        options:    []
+#    image:
+#        enabled:    true
+#        binary:     %wkhtmltoimage.bin_path%
+#        options:    []
 
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        sonata.block.service.text: ~
+#sonata_block:
+#    default_contexts: [cms]
+#    blocks:
+#        sonata.block.service.text: ~
 
 stof_doctrine_extensions:
     default_locale: %sylius.locale%
