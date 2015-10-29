@@ -51,14 +51,14 @@
         <!-- dummy service name, is being aliaced in dependency injection -->
         <service id="sylius_search.finder" />
 
-        <service id="sylius_search.orm.finder" class="%sylius_search.orm.finder.class%">
-            <argument type="service" id="sylius_search.repository" />
-            <argument>%sylius_search.config%</argument>
-            <argument type="service" id="sylius.repository.product" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="sylius_search.query.logger" on-invalid="ignore" />
-            <argument type="service" id="sylius.context.channel" />
-        </service>
+        <!--<service id="sylius_search.orm.finder" class="%sylius_search.orm.finder.class%">-->
+            <!--<argument type="service" id="sylius_search.repository" />-->
+            <!--<argument>%sylius_search.config%</argument>-->
+            <!--<argument type="service" id="sylius.repository.product" />-->
+            <!--<argument type="service" id="doctrine.orm.entity_manager" />-->
+            <!--<argument type="service" id="sylius_search.query.logger" on-invalid="ignore" />-->
+            <!--<argument type="service" id="sylius.context.channel" />-->
+        <!--</service>-->
 
         <service id="sylius_search.elasticsearch.finder" class="%sylius_search.elasticsearch.finder.class%">
             <argument type="service" id="sylius_search.repository" />
@@ -75,18 +75,18 @@
             </call>
         </service>
 
-        <service id="sylius.search.orm.listener" class="Sylius\Bundle\SearchBundle\Listener\OrmListener">
-            <argument type="service" id="sylius.search.orm.indexer" />
-            <tag name="doctrine.event_listener" event="postFlush" />
-            <tag name="doctrine.event_listener" event="postPersist" />
-            <tag name="doctrine.event_listener" event="postUpdate" />
-            <tag name="doctrine.event_listener" event="preRemove" />
-        </service>
+        <!--<service id="sylius.search.orm.listener" class="Sylius\Bundle\SearchBundle\Listener\OrmListener">-->
+            <!--<argument type="service" id="sylius.search.orm.indexer" />-->
+            <!--<tag name="doctrine.event_listener" event="postFlush" />-->
+            <!--<tag name="doctrine.event_listener" event="postPersist" />-->
+            <!--<tag name="doctrine.event_listener" event="postUpdate" />-->
+            <!--<tag name="doctrine.event_listener" event="preRemove" />-->
+        <!--</service>-->
 
-        <service id="sylius.search.orm.indexer" class="%sylius.search.orm.indexer.class%">
-            <argument>%sylius_search.config%</argument>
-            <argument type="service" id="sylius.search.transformers.model.product" />
-        </service>
+        <!--<service id="sylius.search.orm.indexer" class="%sylius.search.orm.indexer.class%">-->
+            <!--<argument>%sylius_search.config%</argument>-->
+            <!--<argument type="service" id="sylius.search.transformers.model.product" />-->
+        <!--</service>-->
 
         <service id="sylius.search.elasticsearch.indexer" class="%sylius.search.elasticsearch.indexer.class%">
             <argument type="service" id="kernel" />

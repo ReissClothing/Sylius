@@ -5,7 +5,8 @@
 {% endif %}
 
 {% block content %}
-{% createphp cmfMainContent as='rdf' noautotag %}
+{# unused Sylis dependency #}
+{#{% createphp cmfMainContent as='rdf' noautotag %}#}
 <div {{ createphp_attributes(rdf) }}>
     <div class="page-header">
         <h1 class="page-title" {{ createphp_attributes(rdf.title) }}>{{ createphp_content(rdf.title) }}</h1>
