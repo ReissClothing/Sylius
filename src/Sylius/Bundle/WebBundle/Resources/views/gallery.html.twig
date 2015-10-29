@@ -5,7 +5,8 @@
         <div class="carousel">
             <div id="gallery-{{ block.name }}" style="display:none">
                 {% for item in block.children %}
-                    {{ sonata_block_render(item) }}
+                    {# unused Sylis dependency #}
+                    {#{{ sonata_block_render(item) }}#}
                 {% endfor %}
             </div>
             <div id="blueimp-gallery-{{ block.name }}" class="blueimp-gallery blueimp-gallery-carousel">
