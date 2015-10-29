@@ -6,7 +6,8 @@
     {% for result in results %}
 
         <div class="col-md-{{ 12 / size }}">
-            {% include getSearchResultSnippet(result) %}
+            {# unused Sylis dependency #}
+            {#{% include getSearchResultSnippet(result) %}#}
         </div>
         {% if 0 == loop.index % size %}
             </div>

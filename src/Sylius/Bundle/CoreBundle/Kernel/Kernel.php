@@ -41,7 +41,7 @@ abstract class Kernel extends BaseKernel
     public function registerBundles()
     {
         $bundles = [
-            new \Sylius\Bundle\InstallerBundle\SyliusInstallerBundle(),
+//            new \Sylius\Bundle\InstallerBundle\SyliusInstallerBundle(),
             new \Sylius\Bundle\OrderBundle\SyliusOrderBundle(),
             new \Sylius\Bundle\MoneyBundle\SyliusMoneyBundle(),
             new \Sylius\Bundle\CurrencyBundle\SyliusCurrencyBundle(),
@@ -66,8 +66,10 @@ abstract class Kernel extends BaseKernel
             new \Sylius\Bundle\FlowBundle\SyliusFlowBundle(),
             new \Sylius\Bundle\PricingBundle\SyliusPricingBundle(),
             new \Sylius\Bundle\SequenceBundle\SyliusSequenceBundle(),
-            new \Sylius\Bundle\ContentBundle\SyliusContentBundle(),
-            new \Sylius\Bundle\SearchBundle\SyliusSearchBundle(),
+//            new \Sylius\Bundle\ContentBundle\SyliusContentBundle(),
+            // Disabled due to mismatch in how our indexing works and sylius adding services on
+            // that don't exist. And since we override nearly everything this should be OK. PW 04/2016
+//            new \Sylius\Bundle\SearchBundle\SyliusSearchBundle(),
             new \Sylius\Bundle\RbacBundle\SyliusRbacBundle(),
             new \Sylius\Bundle\UserBundle\SyliusUserBundle(),
             new \Sylius\Bundle\UiBundle\SyliusUiBundle(),
@@ -82,14 +84,14 @@ abstract class Kernel extends BaseKernel
             new \winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
             new \Sylius\Bundle\ApiBundle\SyliusApiBundle(),
 
-            new \Sonata\BlockBundle\SonataBlockBundle(),
+//            new \Sonata\BlockBundle\SonataBlockBundle(),
             new \Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
-            new \Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
-            new \Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
+//            new \Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
+//            new \Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
             new \Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
-            new \Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
-            new \Symfony\Cmf\Bundle\CreateBundle\CmfCreateBundle(),
-            new \Symfony\Cmf\Bundle\MediaBundle\CmfMediaBundle(),
+//            new \Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
+//            new \Symfony\Cmf\Bundle\CreateBundle\CmfCreateBundle(),
+//            new \Symfony\Cmf\Bundle\MediaBundle\CmfMediaBundle(),
 
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
@@ -110,7 +112,7 @@ abstract class Kernel extends BaseKernel
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
-            new \Payum\Bundle\PayumBundle\PayumBundle(),
+//            new \Payum\Bundle\PayumBundle\PayumBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
             new \HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
@@ -120,7 +122,7 @@ abstract class Kernel extends BaseKernel
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \Sylius\Bundle\FixturesBundle\SyliusFixturesBundle(),
-            new \Sylius\Bundle\PayumBundle\SyliusPayumBundle(), // must be added after PayumBundle.
+//            new \Sylius\Bundle\PayumBundle\SyliusPayumBundle(), // must be added after PayumBundle.
             new \Sylius\Bundle\ThemeBundle\SyliusThemeBundle(), // must be added after FrameworkBundle
         ];
 
