@@ -84,13 +84,32 @@ interface OrderInterface extends
      */
     public function getItemsTotal();
 
+    /**
+     * @return int
+     */
+    public function getItemsRefundTotal();
+
     public function recalculateItemsTotal();
 
     /**
+     * The net total inclusive of refunds
+     *
      * @return int
      */
     public function getTotal();
 
+    /**
+     * @return int
+     */
+    public function getRefundTotal();
+
+    /**
+     * The total excluding refunds
+     *
+     * @return int
+     */
+    public function getGrossTotal();
+    
     /**
      * @return int
      */

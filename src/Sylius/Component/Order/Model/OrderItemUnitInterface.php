@@ -23,6 +23,11 @@ interface OrderItemUnitInterface extends ResourceInterface, AdjustableInterface
     public function getTotal();
 
     /**
+     * @return int
+     */
+    public function getRefundTotal();
+
+    /**
      * @return OrderItemInterface
      */
     public function getOrderItem();

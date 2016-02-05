@@ -269,6 +269,7 @@ class OrderSpec extends ObjectBehavior
 
         $item->getUnits()->willReturn([$unit1, $unit2]);
         $item->getTotal()->willReturn(4000);
+        $item->getRefundTotal()->willReturn(0);
 
         $item->setOrder($this)->shouldBeCalled();
         $this->addItem($item);
@@ -286,6 +287,7 @@ class OrderSpec extends ObjectBehavior
 
         $item->getUnits()->willReturn([$unit1, $unit2]);
         $item->getTotal()->willReturn(4000);
+        $item->getRefundTotal()->willReturn(0);
 
         $item->setOrder($this)->shouldBeCalled();
         $this->addItem($item);
@@ -369,6 +371,9 @@ class OrderSpec extends ObjectBehavior
         $orderPromotionAdjustment->isNeutral()->willReturn(false);
         $orderItemPromotionAdjustment->isNeutral()->willReturn(false);
 
+        $orderPromotionAdjustment->isRefund()->willReturn(false);
+        $orderItemPromotionAdjustment->isRefund()->willReturn(false);
+
         $orderPromotionAdjustment->getType()->willReturn(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT);
         $orderItemPromotionAdjustment->getType()->willReturn(AdjustmentInterface::ORDER_ITEM_PROMOTION_ADJUSTMENT);
 
@@ -377,7 +382,9 @@ class OrderSpec extends ObjectBehavior
         $orderItem->getAdjustmentsRecursively(AdjustmentInterface::ORDER_ITEM_PROMOTION_ADJUSTMENT)->willReturn([$orderItemPromotionAdjustment]);
         $orderItem->setOrder($this)->shouldBeCalled();
         $orderItem->getTotal()->willReturn(15000);
+        $orderItem->getRefundTotal()->willReturn(0);
         $orderItem->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([]);
+
 
         $this->addItem($orderItem);
         $this->addAdjustment($orderPromotionAdjustment);
