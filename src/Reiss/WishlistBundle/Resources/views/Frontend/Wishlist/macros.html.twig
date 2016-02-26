@@ -1,0 +1,151 @@
+{% macro list(wishlists, wishlistShared) %}
+
+    {% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+
+    {% from 'ReissWishlistBundle:Frontend/Product:macros.html.twig' import productPrice %}
+
+    {% for wishlist in wishlists %}
+        <div class="wishlist">
+        <div class="container">
+            <div class="wishlist-header">
+
+                <div class="grid">
+                    <div class="grid__item grid-12--small grid-4--medium">
+                        <form method="post" class="wishlist-form" action="{{ path('reiss_change_name', {'wishlistId': wishlist.id}) }}">
+                            <div class="wishlist-header__title text-center-small-only">
+                                <div class="grid">
+                                    <div class="grid__item grid-12--small">
+                                        <input type="text" class="wishlist-form__input  no--styling no--focus text-center-small-only" name="newName" value="{{ wishlist.name }}" autocomplete="off"
+                                               readonly>
+                                        <a href="" class="wishlist-form__edit  text--center inline--block">Edit title</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {#<button class="btn btn--primary" type="submit" value="Change">Update</button>#}
+                        </form>
+                    </div>
+
+                    <div class="grid__item grid-8--small grid-4--medium text-center-medium-up">
+                        <div class="product-view-switch ">
+                            <a class="product-view-switch__link active js-image-swap-nav" href="#" data-swapindex="0">Product <span class="visible-medium">View</span></a>
+                            <span class="product-view-switch__link">/</span> <a href="#" class="product-view-switch__link js-image-swap-nav" data-swapindex="1">Outfit <span
+                                        class="visible-medium">View</span></a>
+                        </div>
+                    </div>
+
+                    <div class="grid__item grid-4--small grid-4--medium">
+                        <a class="wishlist-header__link  float--right" data-dismiss="modal" aria-hidden="true" href="{{ path('reiss_remove_wishlist', {'wishlistId': wishlist.id}) }}">Delete list <i
+                                    class="icon icon-cross"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="wishlist-body">
+                <div class="grid--table full--width">
+                    {% for wishlistItem in wishlist.wishlistItems %}
+                        <div class="grid__item grid-6--small grid-4--medium grid-3--large" id="variant-{{ wishlistItem.variant.id }}">
+
+                            <div class="media-box no--margin">
+                                <div class="media-box-img media-box-img--bordered">
+                                    <a class="{% if reiss_is_desktop() %}js-product-overlay{% endif %}"
+                                       href="{{ path('reiss_product_detail_wishlist', { 'wishlistItemId' : wishlistItem.id }) }}">
+                                        <figure class="image-swap js-image-swap">
+                                            <img class="lazy-img img--full active" src="{{ reiss_product_primary_image(wishlistItem.variant.product, 400, 320) }}" alt=""/>
+                                            <img class="lazy-img img--full" src="{{ reiss_product_outfit_image(wishlistItem.variant.product, 400, 320) }}" alt=""/>
+                                        </figure>
+                                    </a>
+                                </div>
+
+                                <div class="media-box-attributes text--left">
+                                    <h2 class="media-wishlistbox__title">{{ wishlistItem.variant.product.name }}<strong class="media-wishlistbox__price float--right visible-medium">{{ productPrice(wishlistItem.variant.product) }}</strong></h2>
+                                    <div class="grid">
+                                        <div class="grid__item grid-6--small">
+                                            <div class="media-wishlistbox-variants ">
+                                                <span class="full--width inline--block">
+                                                    {{ wishlistItem.variant.product.colour.name }}
+                                                </span>
+                                                <span class="full--width inline--block">
+                                                    {{ 'reiss.frontend.wishlist.size'|trans }} {{ wishlistItem.variant.size.presentation }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        {#<div class="grid__item grid-6--small text--right">#}
+                                        {#<div class="media-wishlistbox-actions ">#}
+                                        {#<a class="media-wishlistbox-actions__link js-fancybox fancybox.ajax" data-fancybox-type="ajax" href="{{  path('reiss_product_detail_wishlist', {'id': wishlistItem.variant.product.id}) }}">View /Edit</a>#}
+                                        {#</div>#}
+                                        {#</div>#}
+                                    </div>
+
+                                </div>
+                                {#<a type="button" class="close wishlist-product__remove" data-dismiss="modal" aria-hidden="true" href="{{ path('reiss_remove_wishlist_product', {'wishlistItemId': wishlistItem.id}) }}">&times;</a>{{ wishlistItem.variant.product.name }}#}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="wishlist-toolbar">
+
+                <div class="grid">
+                    <div class="grid__item grid-12--small grid-6--medium">
+
+                        <div class="wishlist-share text-center-small-only no--padding">
+                            <div class="social-bar inline--block full--width">
+                                <ul class="list--inline">
+                                    <li class="social-bar__item">SHARE</li>
+                                    <li class="social-bar__item"><a class="social-bar__link" href=""><i class="icon icon-email"></i></a></li>
+                                    <li class="social-bar__item"><a class="social-bar__link" href=""><i class="icon icon-fb"></i></a></li>
+                                    <li class="social-bar__item"><a class="social-bar__link" href=""><i class="icon icon-twitter"></i></a></li>
+                                    <li class="social-bar__item"><a class="social-bar__link" href=""><i class="icon icon-gplus"></i></a></li>
+                                    <li class="social-bar__item"><a class="social-bar__link" href=""><i class="icon icon-pinterest"></i></a></li>
+                                    <li class="social-bar__item"><a class="social-bar__link" href=""><i class="icon icon icon-tumblr"></i></a></li>
+                                </ul>
+                            </div>
+
+                            {#{% if wishlist.shareToken %}#}
+                            {#{{ wishlistShared[wishlist.id] }}#}
+                            {#{% else %}#}
+                            {#wishlist not shared.#}
+                            {#{% endif %}#}
+                            {#{% if wishlist.shareToken %}#}
+                            {#<a class="btn btn--primary share-wishlist__button" href="{{ path('reiss_wishlist_unshare',  {'wishlistId': wishlist.id}) }}">Unshare</a>#}
+                            {#{% else %}#}
+                            {#<a class="btn btn--primary share-wislist__button" href="{{ path('reiss_wishlist_share', {'wishlistId': wishlist.id} ) }}">Share</a>#}
+                            {#{% endif %}#}
+                        </div>
+                    </div>
+                    <div class="grid__item grid-12--small grid-3--medium">
+                        <a class="btn btn--tertiary btn--action full--width" href="{{ path('reiss_wishlist_create_new_wishlist') }}">Add New List <i class="icon icon-plus"></i></a>
+                    </div>
+                    <div class="grid__item grid-12--small grid-3--medium">
+                        <a class="btn btn--primary full--width" href="">Add List To Bag</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    {% else %}
+
+        <div class="page-heading">
+            <div class="container">
+
+                <div class="page-heading--smaller">
+                    <h2 class="page-heading__title h2-size text--center">There are no items in your wishlist</h2>
+                </div>
+
+                <div class="grid">
+                    <div class="grid__item grid-12--small grid-4--medium push-4--medium">
+                        <a class="btn btn--tertiary btn--action full--width" href="{{ path('reiss_wishlist_create_new_wishlist') }}">Add New List <i class="icon icon-plus"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+    {% endfor %}
+
+{% endmacro %}

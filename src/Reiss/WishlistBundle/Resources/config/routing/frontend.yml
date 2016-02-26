@@ -1,0 +1,75 @@
+reiss_wishlist_show:
+    path: /
+    methods: [GET, POST]
+    defaults:
+        _controller: reiss.controller.wishlist:showWishlistsAction
+
+reiss_wishlist_create_new_wishlist:
+    path: /new/
+    methods: [GET, POST]
+    defaults:
+        _controller: reiss.controller.wishlist:addNewWishlistLastPositionAction
+
+reiss_remove_wishlist:
+    path: /remove-wishlist/
+    methods: [GET, POST]
+    defaults:
+        _controller: reiss.controller.wishlist:removeWishlistAction
+
+reiss_remove_wishlist_product:
+    path: /remove-wishlist-product/
+    methods: [GET, POST]
+    defaults:
+        _controller: reiss.controller.wishlist:removeWishlistItemAction
+
+reiss_wishlist_add_product_after_login:
+    path:  /add/{variantId}
+    methods: [GET]
+    defaults:
+       _controller: reiss.controller.wishlist:addProductToWishlistAfterLoginAction
+    requirements:
+        variantId: \d+
+
+reiss_change_name:
+    path: /change-name/
+    methods: [POST]
+    defaults:
+        _controller: reiss.controller.wishlist:changeNameWishlistAction
+
+reiss_wishlist_move_item:
+    path: /move-wishlist-item/
+    methods: [GET, POST]
+    defaults:
+        _controller: reiss.controller.wishlist:moveWishlistItemAction
+
+# When needed use sylus cart item controller that points to reiss cart item controller class
+#reiss_from_wishlist_to_cart:
+#    path: /add-wishlist-to-cart/
+#    defaults:
+#        _controller: reiss.cart.controller.cart_item:addItemAction
+
+reiss_wishlist_share:
+    path: /share/
+    defaults:
+        _controller: reiss.controller.wishlist:shareWishlistAction
+
+reiss_wishlist_unshare:
+    path: /unshare/
+    defaults:
+        _controller: reiss.controller.wishlist:unshareWishlist
+
+reiss_wishlist_getting_share_url:
+    path: /loading-url/
+    defaults:
+        _controller: reiss.controller.wishlist:getSharedWishlistUrl
+
+reiss_add_cart_to_wishlist:
+    path: /cart/add-to-wishlist/
+    defaults:
+        _controller: reiss.controller.wishlist:addBasketToWishlistAction
+
+reiss_product_detail_wishlist:
+    path: /product-detail/{wishlistItemId}/
+    methods: [GET]
+    defaults:
+        _controller: reiss.controller.wishlist:displayProductDetailWishlistAction

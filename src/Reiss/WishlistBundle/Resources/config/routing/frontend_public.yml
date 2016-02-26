@@ -1,0 +1,20 @@
+# The controller will check if the user is logged in or not, and act accordingly.
+# This route needs to be unprotected by the firewall as a workaround to redirect the user to the refer
+# after posting an item into the wishlist. Symfony doesn't redirect if the request is a POST
+reiss_wishlist_add_product:
+    path:  /add/
+    methods: [POST]
+    defaults:
+        _controller: reiss.controller.wishlist:addProductToWishlistAction
+
+reiss_wishlist_shared_wishlist:
+    path: /{shareToken}/
+    defaults:
+        _controller: reiss.controller.wishlist:showSharedWishlistAction
+
+reiss_wishlist_wishlist_mini:
+    path: /wishlist/summary/
+    defaults:
+        _controller: reiss.controller.wishlist:summaryJsonAction
+        _format: json
+

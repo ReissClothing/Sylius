@@ -1,0 +1,23 @@
+{% extends 'ReissWebBundle:Frontend:layout.html.twig' %}
+
+{% from 'ReissWishlistBundle:Frontend/Wishlist:macros.html.twig' import list %}
+
+{% block content %}
+
+    <div class="breadcrumb visible-medium">
+        <div class="container">
+            <div class="grid">
+                <div class="grid__item grid-6--medium"><a href="">Reiss</a> / <span>Wishlist</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-heading--bordered-bottom">
+            <h1 class="page-heading__title text--center">{{ wishlistsName }}</h1>
+        </div>
+    </div>
+
+    {{ list(wishlists, wishlistShared) }}
+
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'ReissWebBundle:Backend:layout.html.twig' %}
+{% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+
+{% block topbar %}
+    <ol class="breadcrumb">
+        <li>{{ 'sylius.breadcrumb.customers'|trans }}</li>
+        <li>{{ 'reiss.frontend.wishlist.title.wishlist'|trans }}</li>
+    </ol>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite'
+    '@ReissWishlistBundle/Resources/public/css/wishlist-show.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1><i class="glyphicon glyphicon-heart"></i> {{ 'reiss.frontend.wishlist.title.wishlist'|trans }}
+            <small>{{ 'reiss.frontend.wishlist.title.small' | trans }}</small>
+        </h1>
+    </div>
+    <form id="form_filter_wishlist" method="get" action="{{ path('reiss_backend_wishlist_statistics') }}">
+        {{ form_widget(form) }}
+        <input type="submit" value="{{ 'reiss.frontend.wishlist.button.filter' | trans }}" class="btn btn-primary">
+    </form>
+
+    <h1>
+        <small>{{ 'reiss.frontend.wishlist.title.statistics' | trans }}</small>
+    </h1>
+
+    <table class="table wishlists" id="job-table">
+        <tr class="table-header">
+            <th></th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics.header.number_of_wishlists' | trans }}</th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics.header.number_customers_with_wishlist' | trans }}</th>
+        </tr>
+        {% set total = 0 %}
+        {% set customerCountTot = 0 %}
+        {% for totals in wishlistCount %}
+            <tr class="{{ totals['gender'] }}">
+                <td class="table-header"><b>{{ 'reiss.frontend.wishlist.gender.' ~ totals['gender'] | trans }}</b></td>
+                <td>{{ totals['times'] }}</td>
+                {% set total =  total + totals['times']%}
+                <td>{{ customerCount[totals['gender']] }}</td>
+                {% set customerCountTot =  customerCountTot + customerCount[totals['gender']] %}
+            </tr>
+        {% endfor %}
+
+        <tr class="T">
+            <td class="table-header">
+                <b>{{ 'reiss.frontend.wishlist.table.statistics.header.total' | trans }}</b>
+            </td>
+            <td>{{ total }}</td>
+            <td>{{ customerCountTot }}</td>
+        </tr>
+    </table>
+
+    <h1>
+        <small>{{ 'reiss.frontend.wishlist.title.statistics_products' | trans }}</small>
+    </h1>
+
+    <table class="table products" id="job-table">
+        <tr class="table-header">
+            <th></th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics_products.header.active' | trans }}</th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics_products.header.inactive' | trans }}</th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics_products.header.stock' | trans }}</th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics_products.header.out_stock' | trans }}</th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics_products.header.sale' | trans }}</th>
+            <th>{{ 'reiss.frontend.wishlist.table.statistics_products.header.full_price' | trans }}</th>
+        </tr>
+        {% set total1 = 0 %}
+        {% set total2 = 0 %}
+        {% for genderKey, sal in sale %}
+            <tr class="{{ genderKey }}">
+                <td class="table-header"><b>{{ 'reiss.frontend.wishlist.gender.' ~ genderKey  | trans }}</b></td>
+                <td>NOT YET</td>
+                <td>NOT YET</td>
+                {#<td>{{ stock['stockCount']['M']['stock'] }}</td>#}
+                {#<td>{{ stock['stockCount']['M']['outOfStock'] }}</td>#}
+                <td>NOT YET</td>
+                <td>NOT YET</td>
+
+                <td>{{ sal[true] }}</td>
+                <td>{{ sal[false] }}</td>
+                {% set total1 =  total1 + sal[true] %}
+                {% set total2 =  total2 + sal[false] %}
+
+            </tr>
+        {% endfor %}
+
+        <tr class="T">
+            <td class="table-header"><b>{{ 'reiss.frontend.wishlist.table.statistics.header.total' | trans }}</b></td>
+            <td>NOT YET</td>
+            <td>NOT YET</td>
+            <td>NOT YET</td>
+            <td>NOT YET</td>
+            <td>{{ total1 }}</td>
+            <td>{{ total2 }}</td>
+        </tr>
+    </table>
+
+    <h1>
+        {% if translation == "M" %}
+            <small>{{ 'reiss.frontend.wishlist.gender.top_mens_products' | trans }}</small>
+        {% elseif translation == "W" %}
+            <small>{{ 'reiss.frontend.wishlist.gender.top_womens_products' | trans }}</small>
+        {% else %}
+            <small>{{ 'reiss.frontend.wishlist.gender.top_both_products' | trans }}</small>
+        {% endif %}
+    </h1>
+
+    {% if topProducts|length > 0 %}
+        <table class="table top-products" id="job-table">
+            <tr>
+                <th>{{ 'reiss.frontend.wishlist.table.top_products.header.thumbnail' | trans }}</th>
+                <th>{{ 'reiss.frontend.wishlist.table.top_products.header.product_name' | trans }}</th>
+                <th>{{ 'reiss.frontend.wishlist.table.top_products.header.colour' | trans }}</th>
+                <th>{{ 'reiss.frontend.wishlist.table.top_products.header.count' | trans }}</th>
+                <th>{{ 'reiss.frontend.wishlist.table.top_products.header.stock_level' | trans }}</th>
+                <th>{{ 'reiss.frontend.wishlist.table.top_products.header.active' | trans }}</th>
+            </tr>
+            {% for productAndCount in topProducts %}
+                <tr>
+                    <td><img src="{{ reiss_product_primary_image(productAndCount.product) }}"
+                             alt="{{ productAndCount.product.name }}"/><br></td>
+                    <td>{{ productAndCount.product.name }}</td>
+                    <td>{{ productAndCount.product.colour.name }}</td>
+                    <td>{{ productAndCount.count }}</td>
+                    <td>
+                        NOT YET
+                        {#<span class="label label-{{ productAndCount.product.isOutOfStock ? 'success' : 'danger' }}">#}
+                        {#{{ productAndCount.product.isOutOfStock ? 'sylius.yes'|trans : 'sylius.no'|trans }}#}
+                        {#</span>#}
+                    </td>
+                    <td>NOT YET</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {{ alerts.info('reiss.frontend.wishlist.alerts.no_products'|trans) }}
+    {% endif %}
+
+{% endblock %}

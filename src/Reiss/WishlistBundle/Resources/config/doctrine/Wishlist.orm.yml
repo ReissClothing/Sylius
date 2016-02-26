@@ -1,0 +1,49 @@
+Reiss\WishlistBundle\Entity\Wishlist:
+    type: entity
+    repositoryClass: Reiss\WishlistBundle\Entity\Repository\WishlistRepository
+    table: reiss_wishlist
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+        primary:
+            type: boolean
+            column: primary_wishlist
+        position:
+            type: integer
+            column: position_wishlist
+            gedmo:
+                - sortablePosition
+        shareToken:
+            type: string
+            nullable: TRUE
+            column: share_token
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+            column: created_at
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+            column: updated_at
+    oneToMany:
+        wishlistItems:
+            targetEntity: Reiss\WishlistBundle\Entity\WishlistItem
+            mappedBy: wishlist
+            cascade: ["persist","remove"]
+    manyToOne:
+        customer:
+            targetEntity: Reiss\UserBundle\Entity\Customer
+            inversedBy: wishlists
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+                nullable: false

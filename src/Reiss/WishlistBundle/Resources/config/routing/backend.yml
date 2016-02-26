@@ -1,0 +1,5 @@
+reiss_backend_wishlist_statistics:
+    path: /
+    methods: [GET, POST]
+    defaults:
+        _controller: reiss.controller.wishlist:statisticsAction
