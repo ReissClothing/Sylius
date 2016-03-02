@@ -1,0 +1,55 @@
+{% extends 'ReissWishlistBundle:Frontend/Overlays:productDetailsOverlay.html.twig' %}
+
+{% set addToCartForm = sylius_cart_form({ 'product' : product, 'variant' : variant }) %}
+
+{% form_theme addToCartForm 'ReissWebBundle:Frontend/Forms:roundedRectangleOptions.html.twig' %}
+{% form_theme wishlistForm 'ReissWebBundle:Frontend/Forms:mainFormTheme.html.twig' %}
+
+{% block overlayCloseHref %}{{ path('reiss_wishlist_show') }}{% endblock %}
+{% block overlayClassName %}wishlist-product-overlay{% endblock %}
+
+{% block productAttributes %}
+    <div class="product-attributes">
+        <div class="product-colors inline--block text--center js-wishlist-colours">
+            {% include 'ReissWebBundle:Frontend/Overlays/Wishlist:colours.html.twig' with {
+            'selectedProduct' : product } %}
+        </div>
+        <div class="clearfix"></div>
+        <div class="product-sizes inline--block text--center form-field">
+            {% include 'ReissWebBundle:Frontend/Product:sizes.html.twig' with {
+            'form' : addToCartForm, 'checked' : wishlistItem.variant.id } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block actionButtons %}
+    {% if wishlists|length > 1 %}
+        <div class="move-to-wishlist text--left form-field" data-move-wishlist-url="{{ path('reiss_wishlist_move_item') }}"
+             data-wishlist-item-id="{{ wishlistItem.id }}" data-wishlist-item-variant-id="{{ wishlistItem.variant.id }}">
+            {{ form_widget(wishlistForm.wishlist) }}
+        </div>
+    {% endif %}
+    <div class="margin-b-30 padding-t-30">
+        {% if reiss_product_is_available_to_buy(product) %}
+            <button type="submit" class="btn btn--primary inline--block add-to-cart-button js-add-to-bag"
+                    data-action="bag" formaction="{{ path('sylius_cart_item_add', { 'id' : product.id }) }}">
+                {{ 'reiss.frontend.product.add_to_bag'|trans }}
+            </button>
+        {% else %}
+            <button disabled="disabled" class="btn btn--primary btn--inactive inline--block">
+                {{ 'sylius.out_of_stock'|trans }}
+            </button>
+        {% endif %}
+        <button type="submit"
+                formaction="{{ path('reiss_remove_wishlist_product', { 'wishlistItemId' : wishlistItem.id }) }}"
+                class="btn btn--secondary inline--block remove-button no--margin-b">
+            {{ 'reiss.frontend.wishlist.button.remove'|trans }}
+        </button>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'ReissWebBundle:Frontend/Social:addThisSharing.html.twig' with {
+    'shareTitle' : product.name|title ~ ' ' ~ product.shortDescription|title,
+    'url' : app.request.schemeAndHttpHost ~ path(product) } %}
+{% endblock %}

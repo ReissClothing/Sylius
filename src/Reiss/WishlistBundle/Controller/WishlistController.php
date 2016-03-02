@@ -39,7 +39,7 @@ class WishlistController extends ReissBaseController
         $wishlists      = $this->get('reiss.repository.wishlist')->getWishlistsByCustomer($this->getCustomer());
         $wishlistHelper = $this->get('reiss.wishlist_frontend.helper');
 
-        return $this->render('ReissWebBundle:Frontend/Wishlist:index.html.twig',
+        return $this->render('ReissWishlistBundle:Frontend/Wishlist:index.html.twig',
             array(
                 'wishlists'      => $wishlists,
                 'wishlistsName'  => $wishlistHelper->wishlistGroupName($this->getCustomer()),
@@ -195,7 +195,7 @@ class WishlistController extends ReissBaseController
         }
 
         if ($request->isXmlHttpRequest()) {
-            $response = $this->renderView('ReissWebBundle:Frontend:alerts.html.twig');
+            $response = $this->renderView('ReissWishlistBundle:Frontend:alerts.html.twig');
 
             return new Response($response);
         }
@@ -361,10 +361,10 @@ class WishlistController extends ReissBaseController
         }
 
         if (!$wishlist = $this->get('reiss.repository.wishlist')->findOneBy(array('shareToken' => $shareToken))) {
-            return $this->render('ReissWebBundle:Frontend/Wishlist:notFound.html.twig');
+            return $this->render('ReissWishlistBundle:Frontend/Wishlist:notFound.html.twig');
         }
 
-        return $this->render('ReissWebBundle:Frontend/Wishlist:sharedView.html.twig', array('wishlist' => $wishlist));
+        return $this->render('ReissWishlistBundle:Frontend/Wishlist:sharedView.html.twig', array('wishlist' => $wishlist));
     }
 
     /**
@@ -601,10 +601,10 @@ class WishlistController extends ReissBaseController
 
         if ($request->isXmlHttpRequest()) {
             return AjaxJsonResponse::info(
-                $this->renderView('ReissWebBundle:Frontend/Overlays/Wishlist:wishlistItemDetailOverlay.html.twig', $templateVars)
+                $this->renderView('ReissWishlistBundle:Frontend/Overlays:wishlistItemDetailOverlay.html.twig', $templateVars)
             );
         }
 
-        return $this->render('ReissWebBundle:Frontend/Overlays/Wishlist:wishlistItemDetailOverlayMobile.html.twig', $templateVars);
+        return $this->render('ReissWishlistBundle:Frontend/Overlays:wishlistItemDetailOverlayMobile.html.twig', $templateVars);
     }
 }

@@ -1,0 +1,12 @@
+{% from 'ReissWebBundle:Frontend/Product/Swatch:swatch.html.twig' import product_swatch %}
+
+<ul class="list--inline inline--block">
+    {% for p in productColourVersions %}
+        <li class="product-colors__item">
+            <a href="{{ path('reiss_product_detail_wishlist', { 'wishlistItemId' : wishlistItem.id, 'productId' : p.id }) }}"
+               class="{% if selectedProduct.code == p.code %}active{% endif %} {% if reiss_is_desktop() %}js-product-overlay{% endif %} product-colors__link inline--block">
+                {{ product_swatch(p) }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
