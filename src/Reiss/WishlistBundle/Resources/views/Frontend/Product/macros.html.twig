@@ -1,0 +1,45 @@
+{% macro productPrice(product) %}
+    {% if product.retailPrice is null %}
+        <span class="product__price--sale">{{ 'reiss.frontend.product.price.unavailable'|trans }}</span>
+    {% else %}
+        {% if product.markdown %}
+            <span class="product__price--old">{{ product.originalPrice|reiss_price }}</span>
+            <span class="product__price--sale">{{ product.retailPrice|reiss_price }}</span>
+        {% else %}
+            <span class="product__price inline--block">{{ product.retailPrice|reiss_price }}</span>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro productPriceWithNow(product) %}
+    {% if product.retailPrice is null %}
+        <span class="product__price--sale">{{ 'reiss.frontend.product.price.unavailable'|trans }}</span>
+    {% else %}
+        {% if product.markdown %}
+            <span class="product__price--old">{{ product.originalPrice|reiss_price }}</span>
+            {#TODO @martin uppercase reiss.frontend.product.price.now with CSS? #}
+            <span class="product__price--sale">{{ 'reiss.frontend.product.price.now'|trans }} {{ product.retailPrice|reiss_price }}</span>
+        {% else %}
+            <span class="product__price inline--block">{{ product.retailPrice|reiss_price }}</span>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro categoryBackLinks(links, breakpoint) %}
+    {% if links|length > 0 %}
+        {% if 'small' == breakpoint %}
+            {% set visibility_classes = 'bordered--top visible-medium-only-inline-block' %}
+        {% else %}
+            {% set visibility_classes = 'visible-small-only-inline-block visible-large-up-inline-block' %}
+        {% endif %}
+        <div class="related-categories {{ visibility_classes }} full--width">
+            <span class="related-categories__title inline--block">
+                {{ 'reiss.frontend.product.view_more'|trans }}
+            </span>
+            {% for link in links %}
+                <a href="{{ link.url }}" class="related-categories__link">{{ link.name }}</a>
+                {% if false == loop.last %}/{% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
