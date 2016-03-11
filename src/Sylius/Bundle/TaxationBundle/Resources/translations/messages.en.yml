@@ -1,5 +1,9 @@
 sylius:
     form:
+        tax_calculation_strategy:
+            strategies:
+                order_items: Order items based
+                order_item_units: Order item units based
         tax_category:
             name: Name
             description: Description

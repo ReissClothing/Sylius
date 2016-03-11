@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Component\Core\Taxation;
+namespace Sylius\Component\Core\Taxation\Applicator;
 
 use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
@@ -22,7 +22,7 @@ use Sylius\Component\Taxation\Resolver\TaxRateResolverInterface;
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
  * @author Mark McKelvie <mark.mckelvie@reiss.com>
  */
-class OrderShipmentTaxesByZoneApplicator implements OrderShipmentTaxesByZoneApplicatorInterface
+class OrderShipmentTaxesApplicator implements OrderTaxesApplicatorInterface
 {
     /**
      * @var CalculatorInterface
@@ -78,6 +78,22 @@ class OrderShipmentTaxesByZoneApplicator implements OrderShipmentTaxesByZoneAppl
         }
 
         $this->addAdjustment($order, $taxAmount, $taxRate->getLabel(), $taxRate->isIncludedInPrice());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getType()
+    {
+        return 'order_shipment_only';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supports(OrderInterface $order, ZoneInterface $zone)
+    {
+        return false;
     }
 
     /**

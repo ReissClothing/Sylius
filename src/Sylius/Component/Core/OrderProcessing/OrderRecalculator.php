@@ -12,7 +12,7 @@
 namespace Sylius\Component\Core\OrderProcessing;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Taxation\OrderTaxesApplicatorInterface;
+use Sylius\Component\Core\Taxation\Processor\OrderTaxesProcessorInterface;
 use Sylius\Component\Promotion\Processor\PromotionProcessorInterface;
 
 /**
@@ -26,9 +26,9 @@ class OrderRecalculator implements OrderRecalculatorInterface
     private $promotionProcessor;
 
     /**
-     * @var OrderTaxesApplicatorInterface
+     * @var OrderTaxesProcessorInterface
      */
-    private $taxesApplicator;
+    private $orderTaxesProcessor;
 
     /**
      * @var ShippingChargesProcessorInterface
@@ -37,16 +37,16 @@ class OrderRecalculator implements OrderRecalculatorInterface
 
     /**
      * @param PromotionProcessorInterface $promotionProcessor
-     * @param OrderTaxesApplicatorInterface $taxesApplicator
+     * @param OrderTaxesProcessorInterface $orderTaxesProcessor
      * @param ShippingChargesProcessorInterface $shippingChargesProcessor
      */
     public function __construct(
         PromotionProcessorInterface $promotionProcessor,
-        OrderTaxesApplicatorInterface $taxesApplicator,
+        OrderTaxesProcessorInterface $orderTaxesProcessor,
         ShippingChargesProcessorInterface $shippingChargesProcessor
     ) {
         $this->promotionProcessor = $promotionProcessor;
-        $this->taxesApplicator = $taxesApplicator;
+        $this->orderTaxesProcessor = $orderTaxesProcessor;
         $this->shippingChargesProcessor = $shippingChargesProcessor;
     }
 
@@ -58,7 +58,7 @@ class OrderRecalculator implements OrderRecalculatorInterface
     public function recalculate(OrderInterface $order)
     {
         $this->promotionProcessor->process($order);
-        $this->taxesApplicator->apply($order);
+        $this->orderTaxesProcessor->apply($order);
         $this->shippingChargesProcessor->applyShippingCharges($order);
     }
 }

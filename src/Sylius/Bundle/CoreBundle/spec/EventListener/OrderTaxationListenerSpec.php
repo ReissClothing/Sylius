@@ -13,7 +13,7 @@ namespace spec\Sylius\Bundle\CoreBundle\EventListener;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Taxation\OrderTaxesApplicatorInterface;
+use Sylius\Component\Core\Taxation\Processor\OrderTaxesProcessorInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -21,9 +21,9 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class OrderTaxationListenerSpec extends ObjectBehavior
 {
-    function let(OrderTaxesApplicatorInterface $orderTaxesApplicator)
+    function let(OrderTaxesProcessorInterface $orderTaxesProcessor)
     {
-        $this->beConstructedWith($orderTaxesApplicator);
+        $this->beConstructedWith($orderTaxesProcessor);
     }
 
     function it_is_initializable()
@@ -42,12 +42,12 @@ class OrderTaxationListenerSpec extends ObjectBehavior
     }
 
     function it_calls_taxation_processor_on_order(
-        OrderTaxesApplicatorInterface $orderTaxesApplicator,
+        OrderTaxesProcessorInterface $orderTaxesProcessor,
         GenericEvent $event,
         OrderInterface $order
     ) {
         $event->getSubject()->willReturn($order);
-        $orderTaxesApplicator->apply($order)->shouldBeCalled();
+        $orderTaxesProcessor->apply($order)->shouldBeCalled();
 
         $this->applyTaxes($event);
     }
