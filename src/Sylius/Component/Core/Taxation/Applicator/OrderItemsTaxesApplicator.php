@@ -93,22 +93,6 @@ class OrderItemsTaxesApplicator implements OrderTaxesApplicatorInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return 'order_items_only';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supports(OrderInterface $order, ZoneInterface $zone)
-    {
-        return false;
-    }
-
-    /**
      * @param OrderItemUnitInterface $unit
      * @param int $taxAmount
      * @param string $label

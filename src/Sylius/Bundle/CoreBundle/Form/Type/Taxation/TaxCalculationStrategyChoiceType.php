@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Bundle\TaxationBundle\Form\Type;
+namespace Sylius\Bundle\CoreBundle\Form\Type\Taxation;
 
-use Sylius\Component\Taxation\Strategy\TaxCalculationStrategies;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,10 +19,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class TaxCalculationStrategyChoiceType extends AbstractType
 {
-    protected $strategies = [
-        TaxCalculationStrategies::ORDER_ITEMS_BASED => 'sylius.form.tax_calculation_strategy.strategies.order_items',
-        TaxCalculationStrategies::ORDER_ITEM_UNITS_BASED => 'sylius.form.tax_calculation_strategy.strategies.order_item_units',
-    ];
+    /**
+     * @var array
+     */
+    private $strategies;
+
+    /**
+     * @param array $strategies
+     */
+    public function __construct(array $strategies)
+    {
+        $this->strategies = $strategies;
+    }
 
     /**
      * {@inheritdoc}

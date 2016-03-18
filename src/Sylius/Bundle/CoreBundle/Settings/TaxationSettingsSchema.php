@@ -16,8 +16,6 @@ use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Sylius\Bundle\SettingsBundle\Transformer\ObjectToIdentifierTransformer;
 use Sylius\Component\Addressing\Model\ZoneInterface;
-use Sylius\Component\Core\Taxation\Applicator\OrderTaxesApplicatorInterface;
-use Sylius\Component\Taxation\Strategy\TaxCalculationStrategies;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -28,11 +26,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 class TaxationSettingsSchema implements SchemaInterface
 {
     /**
-     * Zone repository
-     *
      * @var ObjectRepository
      */
-    protected $zoneRepository;
+    private $zoneRepository;
 
     /**
      * @param ObjectRepository $zoneRepository
@@ -51,7 +47,7 @@ class TaxationSettingsSchema implements SchemaInterface
             ->setDefined('default_tax_zone')
             ->setAllowedTypes('default_tax_zone', ['null', ZoneInterface::class])
             ->setTransformer('default_tax_zone', new ObjectToIdentifierTransformer($this->zoneRepository))
-            ->setDefault('default_tax_calculation_strategy', TaxCalculationStrategies::ORDER_ITEMS_BASED)
+            ->setDefined('default_tax_calculation_strategy')
             ->setAllowedTypes('default_tax_calculation_strategy', 'string')
         ;
     }

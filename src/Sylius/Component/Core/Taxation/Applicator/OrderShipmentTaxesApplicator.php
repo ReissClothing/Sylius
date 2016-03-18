@@ -81,22 +81,6 @@ class OrderShipmentTaxesApplicator implements OrderTaxesApplicatorInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return 'order_shipment_only';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supports(OrderInterface $order, ZoneInterface $zone)
-    {
-        return false;
-    }
-
-    /**
      * @param OrderInterface $order
      * @param int $taxAmount
      * @param string $label

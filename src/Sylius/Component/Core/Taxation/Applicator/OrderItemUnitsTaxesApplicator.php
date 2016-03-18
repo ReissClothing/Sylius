@@ -10,6 +10,7 @@
  */
 
 namespace Sylius\Component\Core\Taxation\Applicator;
+
 use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -55,37 +56,27 @@ class OrderItemUnitsTaxesApplicator implements OrderTaxesApplicatorInterface
      */
     public function apply(OrderInterface $order, ZoneInterface $zone)
     {
-        foreach ($order->getItemUnits() as $unit) {
-            $item = $unit->getOrderItem();
+        foreach ($order->getItems() as $item) {
+            $quantity = $item->getQuantity();
+            if (0 === $quantity) {
+                continue;
+            }
+
             $taxRate = $this->taxRateResolver->resolve($item->getVariant(), ['zone' => $zone]);
 
             if (null === $taxRate) {
                 continue;
             }
 
-            $taxAmount = $this->calculator->calculate($unit->getTotal(), $taxRate);
-            if (0 === $taxAmount) {
-                continue;
+            foreach ($item->getUnits() as $unit) {
+                $taxAmount = $this->calculator->calculate($unit->getTotal(), $taxRate);
+                if (0 === $taxAmount) {
+                    continue;
+                }
+
+                $this->addAdjustment($unit, $taxAmount, $taxRate->getLabel(), $taxRate->isIncludedInPrice());
             }
-
-            $this->addAdjustment($unit, $taxAmount, $taxRate->getLabel(), $taxRate->isIncludedInPrice());
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return 'order_item_units_only';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supports(OrderInterface $order, ZoneInterface $zone)
-    {
-        return false;
     }
 
     /**

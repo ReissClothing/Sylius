@@ -9,16 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Component\Core\Taxation\Applicator;
+namespace Sylius\Component\Core\Taxation\Strategy;
 
 use Sylius\Bundle\SettingsBundle\Model\Settings;
 use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Taxation\Applicator\OrderTaxesApplicatorInterface;
 
 /**
  * @author Mark McKelvie <mark.mckelvie@reiss.com>
  */
-class CompositeOrderTaxesCalculationStrategy implements OrderTaxesApplicatorInterface
+class TaxCalculationStrategy implements TaxCalculationStrategyInterface
 {
     /**
      * @var string
@@ -52,7 +53,7 @@ class CompositeOrderTaxesCalculationStrategy implements OrderTaxesApplicatorInte
     /**
      * {@inheritdoc}
      */
-    public function apply(OrderInterface $order, ZoneInterface $zone)
+    public function applyTaxes(OrderInterface $order, ZoneInterface $zone)
     {
         foreach ($this->applicators as $applicator) {
             $applicator->apply($order, $zone);

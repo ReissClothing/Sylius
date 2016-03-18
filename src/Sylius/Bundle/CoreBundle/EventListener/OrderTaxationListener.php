@@ -50,6 +50,6 @@ class OrderTaxationListener
             );
         }
 
-        $this->orderTaxesProcessor->apply($order);
+        $this->orderTaxesProcessor->applyTaxes($order);
     }
 }

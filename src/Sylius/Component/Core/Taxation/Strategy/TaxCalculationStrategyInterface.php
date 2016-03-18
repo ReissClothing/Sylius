@@ -9,20 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Component\Core\Taxation\Applicator;
+namespace Sylius\Component\Core\Taxation\Strategy;
 
 use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 
 /**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
  * @author Mark McKelvie <mark.mckelvie@reiss.com>
  */
-interface OrderTaxesApplicatorInterface
+interface TaxCalculationStrategyInterface
 {
     /**
      * @param OrderInterface $order
      * @param ZoneInterface $zone
      */
-    public function apply(OrderInterface $order, ZoneInterface $zone);
+    public function applyTaxes(OrderInterface $order, ZoneInterface $zone);
+
+    /**
+     * @return string
+     */
+    public function getType();
+
+    /**
+     * @param OrderInterface $order
+     * @param ZoneInterface $zone
+     *
+     * @return bool
+     */
+    public function supports(OrderInterface $order, ZoneInterface $zone);
 }

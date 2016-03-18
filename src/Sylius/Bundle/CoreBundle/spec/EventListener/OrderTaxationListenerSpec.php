@@ -47,7 +47,7 @@ class OrderTaxationListenerSpec extends ObjectBehavior
         OrderInterface $order
     ) {
         $event->getSubject()->willReturn($order);
-        $orderTaxesProcessor->apply($order)->shouldBeCalled();
+        $orderTaxesProcessor->applyTaxes($order)->shouldBeCalled();
 
         $this->applyTaxes($event);
     }

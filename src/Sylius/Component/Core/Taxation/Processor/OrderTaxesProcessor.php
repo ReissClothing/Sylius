@@ -11,13 +11,14 @@
 
 namespace Sylius\Component\Core\Taxation\Processor;
 
+use Sylius\Bundle\CoreBundle\Taxation\Exception\UnsupportedTaxCalculationStrategyException;
 use Sylius\Component\Addressing\Matcher\ZoneMatcherInterface;
 use Sylius\Component\Addressing\Model\AddressInterface;
 use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Provider\ZoneProviderInterface;
-use Sylius\Component\Core\Taxation\Applicator\OrderTaxesApplicatorInterface;
+use Sylius\Component\Core\Taxation\Strategy\TaxCalculationStrategyInterface;
 use Sylius\Component\Registry\PrioritizedServiceRegistryInterface;
 
 /**
@@ -60,7 +61,7 @@ class OrderTaxesProcessor implements OrderTaxesProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(OrderInterface $order)
+    public function applyTaxes(OrderInterface $order)
     {
         $this->clearTaxes($order);
         if ($order->isEmpty()) {
@@ -73,13 +74,15 @@ class OrderTaxesProcessor implements OrderTaxesProcessorInterface
             return;
         }
 
-        /** @var OrderTaxesApplicatorInterface $applicator */
-        foreach ($this->strategyRegistry->all() as $applicator) {
-            if ($applicator->supports($order, $zone)) {
-                $applicator->apply($order, $zone);
+        /** @var TaxCalculationStrategyInterface $strategy */
+        foreach ($this->strategyRegistry->all() as $strategy) {
+            if ($strategy->supports($order, $zone)) {
+                $strategy->applyTaxes($order, $zone);
                 return;
             }
         }
+
+        throw new UnsupportedTaxCalculationStrategyException();
     }
 
     /**
