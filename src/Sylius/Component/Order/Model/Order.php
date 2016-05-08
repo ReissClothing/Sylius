@@ -612,9 +612,7 @@ class Order implements OrderInterface
 
         $refundTotal = 0;
         foreach ($this->getRefundAdjustments($type) as $refundAdjustment) {
-            if (!$refundAdjustment->isNeutral()) {
-                $refundTotal += $refundAdjustment->getAmount();
-            }
+            $refundTotal += $refundAdjustment->getAmount();
         }
 
         return $refundTotal;

@@ -629,7 +629,7 @@ class OrderItemSpec extends ObjectBehavior
         $adjustment4->getAmount()->willReturn(-9999);
 
         $adjustment1->isNeutral()->willReturn(false);
-        $adjustment2->isNeutral()->willReturn(true);
+        $adjustment2->isNeutral()->willReturn(false);
         $adjustment3->isNeutral()->willReturn(false);
         $adjustment4->isNeutral()->willReturn(false);
 
@@ -652,7 +652,7 @@ class OrderItemSpec extends ObjectBehavior
         $this->addAdjustment($adjustment3);
         $this->addAdjustment($adjustment4);
 
-        $this->getRefundAdjustmentsTotal('tax')->shouldReturn(-2500);
+        $this->getRefundAdjustmentsTotal('tax')->shouldReturn(-4499);
     }
 
     function it_calculates_correct_refund_total_after_units_and_adjustments_change(

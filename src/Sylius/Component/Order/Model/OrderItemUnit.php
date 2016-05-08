@@ -156,9 +156,7 @@ class OrderItemUnit implements OrderItemUnitInterface
 
         $total = 0;
         foreach ($this->getAdjustments($type) as $adjustment) {
-            if (!$adjustment->isNeutral()) {
-                $total += $adjustment->getAmount();
-            }
+            $total += $adjustment->getAmount();
         }
 
         return $total;
@@ -175,9 +173,7 @@ class OrderItemUnit implements OrderItemUnitInterface
 
         $refundTotal = 0;
         foreach ($this->getRefundAdjustments($type) as $refundAdjustment) {
-            if (!$refundAdjustment->isNeutral()) {
-                $refundTotal += $refundAdjustment->getAmount();
-            }
+            $refundTotal += $refundAdjustment->getAmount();
         }
 
         return $refundTotal;
