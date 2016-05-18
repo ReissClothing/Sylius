@@ -113,42 +113,16 @@ class InventoryOperator implements InventoryOperatorInterface
     /**
      * {@inheritdoc}
      */
-    public function decrease($inventoryUnits)
+    public function decrease(StockableInterface $stockable, $quantity)
     {
-        if (!is_array($inventoryUnits) && !$inventoryUnits instanceof Collection) {
-            throw new \InvalidArgumentException('Inventory units value must be array or instance of "Doctrine\Common\Collections\Collection".');
-        }
-
-        $quantity = count($inventoryUnits);
-
-        if ($quantity < 1) {
+        if ($quantity < 0) {
             throw new \InvalidArgumentException('Quantity of units must be greater than 0.');
         }
 
-        if ($inventoryUnits instanceof Collection) {
-            $stockable = $inventoryUnits->first()->getStockable();
-        } else {
-            $stockable = $inventoryUnits[0]->getStockable();
-        }
+        $this->eventDispatcher->dispatch(SyliusStockableEvents::PRE_RELEASE, new GenericEvent($stockable));
 
-        if (!$this->availabilityChecker->isStockSufficient($stockable, $quantity)) {
-            throw new InsufficientStockException($stockable, $quantity);
-        }
+        $stockable->setOnHand($stockable->getOnHand() - $quantity);
 
-        $this->eventDispatcher->dispatch(SyliusStockableEvents::PRE_DECREASE, new GenericEvent($stockable));
-
-        $this->backordersHandler->processBackorders($inventoryUnits);
-
-        $onHand = $stockable->getOnHand();
-
-        foreach ($inventoryUnits as $inventoryUnit) {
-            if (InventoryUnitInterface::STATE_SOLD === $inventoryUnit->getInventoryState()) {
-                --$onHand;
-            }
-        }
-
-        $stockable->setOnHand($onHand);
-
-        $this->eventDispatcher->dispatch(SyliusStockableEvents::POST_DECREASE, new GenericEvent($stockable));
+        $this->eventDispatcher->dispatch(SyliusStockableEvents::POST_RELEASE, new GenericEvent($stockable));
     }
 }

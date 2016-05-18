@@ -31,7 +31,7 @@ class NoopInventoryOperator implements InventoryOperatorInterface
     /**
      * {@inheritdoc}
      */
-    public function decrease($inventoryUnits)
+    public function decrease(StockableInterface $stockable, $quantity)
     {
         // nothing happens.
     }
