@@ -136,7 +136,7 @@ class InventoryHandlerSpec extends ObjectBehavior
         $sm2->can(InventoryUnitTransitions::SYLIUS_RELEASE)->willReturn(false);
         $sm2->apply(InventoryUnitTransitions::SYLIUS_SELL)->shouldBeCalled();
 
-        $inventoryOperator->decrease([$unit1, $unit2])->shouldBeCalled();
+        $inventoryOperator->decrease($variant, 1)->shouldBeCalled();
         $inventoryOperator->release($variant, 1)->shouldBeCalled();
 
         $this->updateInventory($order);

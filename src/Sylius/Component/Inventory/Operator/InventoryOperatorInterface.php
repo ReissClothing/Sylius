@@ -48,9 +48,12 @@ interface InventoryOperatorInterface
     public function release(StockableInterface $stockable, $quantity);
 
     /**
+     * NOTE: Overridden from base Sylius because there's is wrong, it's doing too much in this context
+     *
      * Decrease stock by count of given inventory units.
      *
-     * @param StockableInterface[]|Collection $inventoryUnits
+     * @param StockableInterface $stockable
+     * @param int            $quantity
      */
-    public function decrease($inventoryUnits);
+    public function decrease(StockableInterface $stockable, $quantity);
 }
