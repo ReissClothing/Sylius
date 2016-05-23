@@ -39,6 +39,7 @@ abstract class Kernel extends BaseKernel
     public function registerBundles()
     {
         $bundles = [
+            // Uncomment this one to use install commands (we don't want in our app though)
 //            new \Sylius\Bundle\InstallerBundle\SyliusInstallerBundle(),
             new \Sylius\Bundle\OrderBundle\SyliusOrderBundle(),
             new \Sylius\Bundle\MoneyBundle\SyliusMoneyBundle(),

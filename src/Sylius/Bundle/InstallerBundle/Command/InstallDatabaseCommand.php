@@ -81,8 +81,10 @@ EOT
         }
 
         $commands[] = 'cache:clear';
-        $commands[] = 'doctrine:phpcr:repository:init';
-        $commands[] = 'sylius:search:index';
+        // Commenting these since we're commenting their config so they barf.
+        // If you want to install a stand-alone Sylius backend you'll need to get rid of these. PW 05/2016
+//        $commands[] = 'doctrine:phpcr:repository:init';
+//        $commands[] = 'sylius:search:index';
         $commands[] = 'sylius:rbac:initialize';
         $commands['doctrine:migrations:version'] = [
             '--add' => true,

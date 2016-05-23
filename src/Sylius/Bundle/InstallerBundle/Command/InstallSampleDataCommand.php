@@ -66,8 +66,10 @@ EOT
 
         $commands = [
             'doctrine:fixtures:load' => ['--no-interaction' => true],
-            'doctrine:phpcr:fixtures:load' => ['--no-interaction' => true],
-            'sylius:search:index',
+            // Commenting these since we're commenting their config so they barf.
+            // If you want to install a stand-alone Sylius backend you'll need to get rid of these. PW 05/2016
+//            'doctrine:phpcr:fixtures:load' => ['--no-interaction' => true],
+//            'sylius:search:index',
         ];
 
         $this->runCommands($commands, $input, $output);
