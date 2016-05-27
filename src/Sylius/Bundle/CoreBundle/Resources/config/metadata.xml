@@ -20,6 +20,7 @@
         <parameter key="sylius.metadata.hierarchy_provider.product.class">Sylius\Component\Core\Metadata\HierarchyProvider\ProductHierarchyProvider</parameter>
         <parameter key="sylius.metadata.hierarchy_provider.product_variant.class">Sylius\Component\Core\Metadata\HierarchyProvider\ProductVariantHierarchyProvider</parameter>
         <parameter key="sylius.metadata.accessor.cached.class">Sylius\Bundle\CoreBundle\Metadata\CachedMetadataAccessor</parameter>
+        <parameter key="sylius.metadata.accessor.cautious.class">Sylius\Component\Metadata\Accessor\CautiousMetadataAccessor</parameter>
     </parameters>
 
     <services>
@@ -37,7 +38,12 @@
             <argument type="service" id="property_accessor" />
         </service>
 
-        <service id="sylius.metadata.accessor.cached" class="%sylius.metadata.accessor.cached.class%" decorates="sylius.metadata.accessor" lazy="true">
+        <service id="sylius.metadata.accessor.cautious" class="%sylius.metadata.accessor.cautious.class%" decorates="sylius.metadata.accessor" public="false">
+            <argument type="service" id="sylius.metadata.accessor.cautious.inner" />
+            <argument type="service" id="monolog.logger" />
+        </service>
+
+        <service id="sylius.metadata.accessor.cached" class="%sylius.metadata.accessor.cached.class%" decorates="sylius.metadata.accessor" public="false">
             <argument type="service" id="sylius.metadata.accessor.cached.inner" />
             <argument type="service" id="sylius.context.locale" />
             <argument type="service" id="doctrine_cache.providers.sylius_metadata" />
