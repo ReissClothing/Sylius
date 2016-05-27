@@ -14,6 +14,7 @@ twig:
 doctrine_cache:
     providers:
         sylius_rbac: %sylius.cache%
+        sylius_metadata: %sylius.cache%
 
 knp_gaufrette:
     adapters:
