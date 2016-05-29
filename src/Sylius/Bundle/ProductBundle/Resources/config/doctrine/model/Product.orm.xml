@@ -19,13 +19,8 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="availableOn" column="available_on" type="datetime" nullable="true">
-            <gedmo:versioned />
-        </field>
-
-        <field name="availableUntil" column="available_until" type="datetime" nullable="true">
-            <gedmo:versioned />
-        </field>
+        <field name="availableOn" column="available_on" type="datetime" nullable="true" />
+        <field name="availableUntil" column="available_until" type="datetime" nullable="true" />
 
         <many-to-one field="archetype" target-entity="Sylius\Component\Product\Model\ArchetypeInterface">
             <join-column name="archetype_id" referenced-column-name="id" nullable="true" />
@@ -35,21 +30,18 @@
             <cascade>
                 <cascade-all />
             </cascade>
-            <gedmo:versioned />
         </one-to-many>
 
         <one-to-many field="variants" target-entity="Sylius\Component\Product\Model\VariantInterface" mapped-by="object" orphan-removal="true">
             <cascade>
                 <cascade-all />
             </cascade>
-            <gedmo:versioned />
         </one-to-many>
 
         <one-to-many field="associations" target-entity="Sylius\Component\Product\Model\ProductAssociationInterface" mapped-by="owner" orphan-removal="true">
             <cascade>
                 <cascade-all />
             </cascade>
-            <gedmo:versioned />
         </one-to-many>
 
         <many-to-many field="options" target-entity="Sylius\Component\Product\Model\OptionInterface">
@@ -74,8 +66,6 @@
             <gedmo:timestampable on="update"/>
         </field>
         <field name="enabled" column="enabled" type="boolean" />
-
-        <gedmo:loggable />
     </mapped-superclass>
 
 </doctrine-mapping>
