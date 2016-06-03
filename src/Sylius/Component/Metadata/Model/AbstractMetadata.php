@@ -37,11 +37,9 @@ abstract class AbstractMetadata implements MetadataInterface
                 continue;
             }
 
-            if (null !== $this->{$inheritedKey}) {
-                continue;
+            if (null === $this->{$inheritedKey} || (is_array($this->{$inheritedKey}) && (0 === count($this->{$inheritedKey})))) {
+                $this->{$inheritedKey} = $inheritedValue;
             }
-
-            $this->{$inheritedKey} = $inheritedValue;
         }
     }
 
