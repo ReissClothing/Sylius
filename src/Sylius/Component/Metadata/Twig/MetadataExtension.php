@@ -22,17 +22,17 @@ use Sylius\Component\Metadata\Renderer\MetadataRendererInterface;
  *
  * @author Kamil Kokot <kamil.kokot@lakion.com>
  */
-final class MetadataExtension extends \Twig_Extension
+class MetadataExtension extends \Twig_Extension
 {
     /**
      * @var MetadataAccessorInterface
      */
-    private $metadataAccessor;
+    protected $metadataAccessor;
 
     /**
      * @var MetadataRendererInterface
      */
-    private $metadataRenderer;
+    protected $metadataRenderer;
 
     /**
      * @param MetadataAccessorInterface $metadataAccessor

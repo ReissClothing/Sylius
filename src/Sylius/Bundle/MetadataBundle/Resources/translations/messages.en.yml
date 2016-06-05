@@ -11,6 +11,8 @@ sylius:
             description: Description
             keywords: Keywords
             twitter: Twitter Card
+            ogTitle: Open Graph Title
+            ogDescription: Open Graph Description
         twitter:
             title: Title
             description: Description

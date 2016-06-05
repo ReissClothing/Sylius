@@ -47,6 +47,8 @@ class PageMetadataType extends AbstractResourceType
             ->add('title', 'text', ['label' => 'sylius.metadata.page.title'])
             ->add('description', 'textarea', ['label' => 'sylius.metadata.page.description'])
             ->add('keywords', 'text', ['label' => 'sylius.metadata.page.keywords'])
+            ->add('ogTitle', 'text', ['label' => 'sylius.metadata.page.ogTitle'])
+            ->add('ogDescription', 'textarea', ['label' => 'sylius.metadata.page.ogDescription'])
         ;
 
         $this->dynamicFormBuilder->buildDynamicForm(

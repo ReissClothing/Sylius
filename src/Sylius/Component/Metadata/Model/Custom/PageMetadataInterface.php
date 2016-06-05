@@ -68,4 +68,24 @@ interface PageMetadataInterface extends MetadataInterface
      * @param CardInterface|null $card
      */
     public function setTwitter(CardInterface $card = null);
+
+    /**
+     * @return string
+     */
+    public function getOgDescription();
+
+    /**
+     * @param string $ogDescription
+     */
+    public function setOgDescription($ogDescription);
+
+    /**
+     * @return string
+     */
+    public function getOgTitle();
+
+    /**
+     * @param string $ogTitle
+     */
+    public function setOgTitle($ogTitle);
 }

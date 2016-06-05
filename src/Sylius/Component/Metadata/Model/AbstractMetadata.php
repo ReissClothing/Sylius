@@ -19,6 +19,14 @@ namespace Sylius\Component\Metadata\Model;
 abstract class AbstractMetadata implements MetadataInterface
 {
     /**
+     * @return string[]
+     */
+    protected function getNonMergeProperties()
+    {
+        return [];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function merge(MetadataInterface $metadata)
@@ -29,11 +37,17 @@ abstract class AbstractMetadata implements MetadataInterface
             return;
         }
 
+        $nonMergeProperties = $this->getNonMergeProperties();
+
         $inheritedVariables = get_object_vars($metadata);
         foreach ($inheritedVariables as $inheritedKey => $inheritedValue) {
             if ($this->{$inheritedKey} instanceof MetadataInterface) {
                 $this->{$inheritedKey}->merge($inheritedValue);
 
+                continue;
+            }
+
+            if (in_array($inheritedKey, $nonMergeProperties)) {
                 continue;
             }
 

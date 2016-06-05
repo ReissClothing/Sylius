@@ -180,6 +180,14 @@ final class PageMetadataRenderer implements MetadataRendererInterface
             return sprintf('<meta charset="%s" />', $value);
         });
 
+        $this->addSubrenderer('ogTitle', function ($value) {
+            return sprintf('<meta property="og:title" content="%s" />', $value);
+        });
+
+        $this->addSubrenderer('ogDescription', function ($value) {
+            return sprintf('<meta property="og:description" content="%s" />', $value);
+        });
+
         $this->addSubrenderer('twitter', function ($value) {
             return $this->twitterRenderer->render($value);
         });

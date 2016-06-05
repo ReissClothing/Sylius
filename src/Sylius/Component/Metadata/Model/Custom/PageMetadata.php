@@ -45,6 +45,32 @@ class PageMetadata extends AbstractMetadata implements PageMetadataInterface
     protected $twitter;
 
     /**
+     * We don't want these merging up because Facebook defaults to using the page title if it can't find
+     * anything specific. This is more likely to be correct than something higher up the hierarchy.
+     *
+     * @see https://blog.kissmetrics.com/open-graph-meta-tags/
+     *
+     * @var string
+     */
+    protected $ogTitle;
+
+    /**
+     * @var string
+     */
+    protected $ogDescription;
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getNonMergeProperties()
+    {
+        return [
+            'ogTitle',
+            'ogDescription',
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getTitle()
@@ -122,5 +148,37 @@ class PageMetadata extends AbstractMetadata implements PageMetadataInterface
     public function setTwitter(CardInterface $twitter = null)
     {
         $this->twitter = $twitter;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOgDescription()
+    {
+        return $this->ogDescription;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOgDescription($ogDescription)
+    {
+        $this->ogDescription = $ogDescription;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOgTitle()
+    {
+        return $this->ogTitle;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOgTitle($ogTitle)
+    {
+        $this->ogTitle = $ogTitle;
     }
 }

@@ -45,7 +45,7 @@ class CautiousMetadataAccessor implements MetadataAccessorInterface
     {
         try {
             return $this->metadataAccessor->getProperty($metadataSubject, $type, $propertyPath);
-        } catch (\Twig_Error_Runtime $e) {
+        } catch (\Twig_Error $e) {
             // I'm not sure if the CachedAccessor is the best place for this to go, probably not but time is tight...
             $this->logger->error('Failed to render metadata for: ' . $metadataSubject->getMetadataIdentifier() . ': ' . $e->getRawMessage());
 
