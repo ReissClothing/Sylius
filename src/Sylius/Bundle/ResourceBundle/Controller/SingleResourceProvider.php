@@ -39,6 +39,10 @@ class SingleResourceProvider implements SingleResourceProviderInterface
         if ($request->attributes->has('slug')) {
             $criteria = ['slug' => $request->attributes->get('slug')];
         }
+        
+        if ($request->attributes->has('number')) {
+            $criteria = ['number' => $request->attributes->get('number')];
+        }
 
         $criteria = array_merge($criteria, $requestConfiguration->getCriteria());
 

@@ -44,7 +44,9 @@ class CommentController extends ResourceController
 
             $this->repository->add($resource);
 
-            return $this->redirectHandler->redirectToRoute($configuration, 'sylius_backend_order_show', ['id' => $order->getId()]);
+            // Technically I've broken this route in Sylius but I can't be bothered to override this entire controller
+            // in our project just to change it... No one will be using our Sylius fork outside of Reiss.  PW 06/2016
+            return $this->redirectHandler->redirectToRoute($configuration, 'sylius_backend_order_show', ['number' => $order->getNumber()]);
         }
 
         if (!$configuration->isHtmlRequest()) {
