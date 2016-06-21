@@ -25,7 +25,7 @@
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-            <join-column name="shipping_address_id" referenced-column-name="id" nullable="true" />
+            <join-column name="shipping_address_id" referenced-column-name="id" nullable="true" on-delete="SET NULL" />
         </one-to-one>
 
         <one-to-one field="billingAddress" target-entity="Sylius\Component\Addressing\Model\AddressInterface">
@@ -33,7 +33,7 @@
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-            <join-column name="billing_address_id" referenced-column-name="id" nullable="true" />
+            <join-column name="billing_address_id" referenced-column-name="id" nullable="true" on-delete="SET NULL" />
         </one-to-one>
 
         <many-to-one field="promotionCoupon" target-entity="Sylius\Component\Promotion\Model\CouponInterface">
