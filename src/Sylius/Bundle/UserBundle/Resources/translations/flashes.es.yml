@@ -14,4 +14,4 @@ sylius:
             change:
                 success: ¡Tu contraseña ha sido cambiada exitosamente!
         reset_password:
-            requested: Si el correo electrónico que ha especificado existe en nuestro sistema, le hemos enviado las instrucciones para restablecer su contraseña.
+            requested: Hemos enviado un email a %userEmail% con las instrucciones para crear una nueva contraseña.
