@@ -123,7 +123,7 @@ class UserController extends ResourceController
                 return $this->viewHandler->handle($configuration, View::create($user, 204));
             }
 
-            $this->addFlash('success', 'sylius.user.reset_password.requested');
+            $this->addFlash('success', 'sylius.user.reset_password.requested', ['%userEmail%' => $user->getEmail()]);
 
             return new RedirectResponse($this->container->get('router')->generate('sylius_user_security_login'));
         }
@@ -140,10 +140,10 @@ class UserController extends ResourceController
         );
     }
 
-    protected function addFlash($type, $message)
+    protected function addFlash($type, $message, $parameters = [])
     {
         $translator = $this->container->get('translator');
-        $this->container->get('session')->getFlashBag()->add($type, $translator->trans($message, [], 'flashes'));
+        $this->container->get('session')->getFlashBag()->add($type, $translator->trans($message, $parameters, 'flashes'));
     }
 
     protected function createResourceForm(RequestConfiguration $configuration, $type, $resource)
