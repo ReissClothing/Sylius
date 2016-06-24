@@ -478,9 +478,10 @@
             <argument type="service" id="sylius.repository.country" />
             <tag name="sylius.promotion_rule_checker" type="shipping_country" label="Shipping country" />
         </service>
-        <service id="sylius.promotion_rule_checker.taxon" class="%sylius.promotion_rule_checker.taxon.class%">
-            <tag name="sylius.promotion_rule_checker" type="taxon" label="Taxon" />
-        </service>
+        <!-- Again, duplication as this is already covered with the contains_taxon rule below. PW 06/2016 -->
+        <!--<service id="sylius.promotion_rule_checker.taxon" class="%sylius.promotion_rule_checker.taxon.class%">-->
+            <!--<tag name="sylius.promotion_rule_checker" type="taxon" label="Taxon" />-->
+        <!--</service>-->
         <service id="sylius.promotion_rule_checker.contains_product" class="%sylius.promotion_rule_checker.contains_product.class%">
             <tag name="sylius.promotion_rule_checker" type="contains_product" label="Contains Product" />
         </service>
@@ -499,28 +500,29 @@
             <argument type="service" id="sylius.originator" />
             <argument type="service" id="sylius.proportional_integer_distributor" />
             <argument type="service" id="sylius.promotion.units_promotion_adjustments_applicator" />
-            <tag name="sylius.promotion_action" type="order_fixed_discount" label="Order fixed discount" />
+            <tag name="sylius.promotion_action" type="order_fixed_discount" label="Fixed discount for order" />
         </service>
         <service id="sylius.promotion_action.item_fixed_discount" class="%sylius.promotion_action.item_fixed_discount.class%">
             <argument type="service" id="sylius.factory.adjustment" />
             <argument type="service" id="sylius.originator" />
             <argument type="service" id="sylius.promotion_filter.price_range" />
             <argument type="service" id="sylius.promotion_filter.taxon" />
-            <tag name="sylius.promotion_action" type="item_fixed_discount" label="Item fixed discount" />
+            <tag name="sylius.promotion_action" type="item_fixed_discount" label="Fixed discount per applicable item" />
         </service>
-        <service id="sylius.promotion_action.percentage_discount" class="%sylius.promotion_action.percentage_discount.class%">
-            <argument type="service" id="sylius.originator" />
-            <argument type="service" id="sylius.integer_distributor" />
-            <argument type="service" id="sylius.promotion.units_promotion_adjustments_applicator" />
-            <tag name="sylius.promotion_action" type="order_percentage_discount" label="Order percentage discount" />
-        </service>
+        <!-- Removed because it's already covered by Item Percentage discount, both is just confusion...  PW, 06/2016 -->
+        <!--<service id="sylius.promotion_action.percentage_discount" class="%sylius.promotion_action.percentage_discount.class%">-->
+            <!--<argument type="service" id="sylius.originator" />-->
+            <!--<argument type="service" id="sylius.integer_distributor" />-->
+            <!--<argument type="service" id="sylius.promotion.units_promotion_adjustments_applicator" />-->
+            <!--<tag name="sylius.promotion_action" type="order_percentage_discount" label="Order percentage discount" />-->
+        <!--</service>-->
         <service id="sylius.promotion_action.item_percentage_discount" class="%sylius.promotion_action.item_percentage_discount.class%">
             <argument type="service" id="sylius.factory.adjustment" />
             <argument type="service" id="sylius.originator" />
             <argument type="service" id="sylius.integer_distributor" />
             <argument type="service" id="sylius.promotion_filter.price_range" />
             <argument type="service" id="sylius.promotion_filter.taxon" />
-            <tag name="sylius.promotion_action" type="item_percentage_discount" label="Item percentage discount" />
+            <tag name="sylius.promotion_action" type="item_percentage_discount" label="Percentage discount" />
         </service>
         <service id="sylius.promotion_action.shipping_discount" class="%sylius.promotion_action.shipping_discount.class%">
             <argument type="service" id="sylius.factory.adjustment" />
@@ -531,7 +533,7 @@
             <argument type="service" id="sylius.factory.order_item" />
             <argument type="service" id="sylius.repository.product_variant" />
             <argument type="service" id="sylius.order_item_quantity_modifier" />
-            <tag name="sylius.promotion_action" type="add_product" label="Add product" />
+            <tag name="sylius.promotion_action" type="add_product" label="Free product" />
         </service>
 
         <service id="sylius.promotion.eligibility_checker.coupons" class="%sylius.promotion.eligibility_checker.coupons.class%">
