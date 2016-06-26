@@ -65,7 +65,7 @@ class ItemFixedDiscountAction extends ItemDiscountAction
         }
 
         if (0 === $configuration['amount']) {
-            return;
+            return false;
         }
 
         $filteredItems = $this->priceRangeFilter->filter($subject->getItems()->toArray(), $configuration);
@@ -74,6 +74,9 @@ class ItemFixedDiscountAction extends ItemDiscountAction
         foreach ($filteredItems as $item) {
             $this->setUnitsAdjustments($item, $configuration['amount'], $promotion);
         }
+
+        // This isn't enough because of filtering but we'll override this in the Reiss project PW 06/2016
+        return true;
     }
 
     /**

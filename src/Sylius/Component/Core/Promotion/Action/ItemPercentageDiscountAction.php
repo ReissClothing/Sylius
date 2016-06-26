@@ -82,6 +82,9 @@ class ItemPercentageDiscountAction extends ItemDiscountAction
 
             $this->setUnitsAdjustments($item, $distributedAmounts, $promotion);
         }
+
+        // This isn't enough because of filtering but we'll override this in the Reiss project PW 06/2016
+        return true;
     }
 
     /**

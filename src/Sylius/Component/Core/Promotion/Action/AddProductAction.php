@@ -62,7 +62,7 @@ class AddProductAction implements PromotionActionInterface
     public function execute(PromotionSubjectInterface $subject, array $configuration, PromotionInterface $promotion)
     {
         if ($subject instanceof OrderItemInterface) {
-            return;
+            return false;
         }
 
         if (!$subject instanceof OrderInterface) {
@@ -73,13 +73,15 @@ class AddProductAction implements PromotionActionInterface
 
         foreach ($subject->getItems() as $item) {
             if ($item->equals($promotionItem)) {
-                return;
+                return false;
             }
         }
 
         $promotionItem->setImmutable(true);
 
         $subject->addItem($promotionItem);
+
+        return true;
     }
 
     /**

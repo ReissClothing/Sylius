@@ -60,14 +60,14 @@ class FixedDiscountAction extends DiscountAction
     public function execute(PromotionSubjectInterface $subject, array $configuration, PromotionInterface $promotion)
     {
         if (!$this->isSubjectValid($subject)) {
-            return;
+            return false;
         }
 
         $this->isConfigurationValid($configuration);
 
         $promotionAmount = $this->calculateAdjustmentAmount($subject->getPromotionSubjectTotal(), $configuration['amount']);
         if (0 === $promotionAmount) {
-            return;
+            return false;
         }
 
         $itemsTotals = [];
@@ -77,6 +77,8 @@ class FixedDiscountAction extends DiscountAction
 
         $splitPromotion = $this->proportionalDistributor->distribute($itemsTotals, $promotionAmount);
         $this->unitsPromotionAdjustmentsApplicator->apply($subject, $promotion, $splitPromotion);
+
+        return true;
     }
 
     /**

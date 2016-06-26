@@ -59,18 +59,20 @@ class PercentageDiscountAction extends DiscountAction
     public function execute(PromotionSubjectInterface $subject, array $configuration, PromotionInterface $promotion)
     {
         if (!$this->isSubjectValid($subject)) {
-            return;
+            return false;
         }
 
         $this->isConfigurationValid($configuration);
 
         $promotionAmount = $this->calculateAdjustmentAmount($subject->getPromotionSubjectTotal(), $configuration['percentage']);
         if (0 === $promotionAmount) {
-            return;
+            return false;
         }
 
         $splitPromotion = $this->distributor->distribute($promotionAmount, $subject->countItems());
         $this->unitsPromotionAdjustmentsApplicator->apply($subject, $promotion, $splitPromotion);
+
+        return true;
     }
 
     /**

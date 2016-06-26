@@ -533,7 +533,7 @@
             <argument type="service" id="sylius.factory.order_item" />
             <argument type="service" id="sylius.repository.product_variant" />
             <argument type="service" id="sylius.order_item_quantity_modifier" />
-            <tag name="sylius.promotion_action" type="add_product" label="Free product" />
+            <tag name="sylius.promotion_action" type="add_product" label="Extra product" />
         </service>
 
         <service id="sylius.promotion.eligibility_checker.coupons" class="%sylius.promotion.eligibility_checker.coupons.class%">

@@ -62,6 +62,8 @@ class ShippingDiscountAction implements PromotionActionInterface
         $adjustment->setAmount(-$adjustmentAmount);
 
         $subject->addAdjustment($adjustment);
+
+        return true;
     }
 
     /**

@@ -28,7 +28,7 @@ interface PromotionActionInterface
      * @param array                     $configuration
      * @param PromotionInterface        $promotion
      *
-     * @return mixed
+     * @return boolean
      */
     public function execute(PromotionSubjectInterface $subject, array $configuration, PromotionInterface $promotion);
 
