@@ -378,6 +378,14 @@ class Order extends Cart implements OrderInterface
     /**
      * {@inheritdoc}
      */
+    public function getPromotionSubjectItems()
+    {
+        return $this->getItems();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPromotionSubjectCount()
     {
         return $this->getTotalQuantity();

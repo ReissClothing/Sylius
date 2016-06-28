@@ -25,6 +25,11 @@ interface PromotionSubjectInterface
     public function getPromotionSubjectTotal();
 
     /**
+     * @return Collection
+     */
+    public function getPromotionSubjectItems();
+
+    /**
      * @param PromotionInterface $promotion
      *
      * @return bool
