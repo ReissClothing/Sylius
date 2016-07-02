@@ -72,7 +72,6 @@ class CouponsEligibilityChecker extends BaseCouponsEligibilityChecker
 
         $placedOrdersNumber = $this->orderRepository->countByCustomerAndCoupon($customer, $coupon);
 
-        // <= because we need to include the cart orders as well
-        return $placedOrdersNumber <= $couponUsageLimit;
+        return $placedOrdersNumber < $couponUsageLimit;
     }
 }
