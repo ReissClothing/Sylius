@@ -36,12 +36,16 @@
                 <cascade-all />
             </cascade>
             <order-by>
-                <order-by-field name="left" direction="ASC" />
+                <order-by-field name="code" direction="ASC" />
             </order-by>
         </one-to-many>
 
+        <!--
+            Reiss doesn't use the tree ordering since we only really 'order' in the admin and alphabetical is fine.
+            So just sort alphabetical on the code not on the tree structure (the same change is on children above) PW 07/2016
+        -->
         <order-by>
-            <order-by-field name="left" direction="ASC" />
+            <order-by-field name="code" direction="ASC" />
         </order-by>
 
         <field name="code" column="code" type="string" unique="true" />
