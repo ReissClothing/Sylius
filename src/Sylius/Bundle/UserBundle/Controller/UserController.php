@@ -115,17 +115,22 @@ class UserController extends ResourceController
 
         if (in_array($request->getMethod(), ['POST', 'PUT', 'PATCH']) && $form->submit($request, !$request->isMethod('PATCH'))->isValid()) {
             $user = $this->repository->findOneByEmail($passwordReset->getEmail());
+
             if (null !== $user) {
                 $this->handleResetPasswordRequest($generator, $user, $senderEvent);
+
+                if (!$configuration->isHtmlRequest()) {
+                    return $this->viewHandler->handle($configuration, View::create($user, 204));
+                }
+
+                $this->addFlash('success', 'sylius.user.reset_password.requested', ['%userEmail%' => $passwordReset->getEmail()]);
+
+                return new RedirectResponse($this->container->get('router')->generate('sylius_user_security_login'));
             }
 
-            if (!$configuration->isHtmlRequest()) {
-                return $this->viewHandler->handle($configuration, View::create($user, 204));
+            if ($configuration->isHtmlRequest()) {
+                $this->addFlash('error', 'sylius.user.email.not_exist', ['%userEmail%' => $passwordReset->getEmail()]);
             }
-
-            $this->addFlash('success', 'sylius.user.reset_password.requested', ['%userEmail%' => $user->getEmail()]);
-
-            return new RedirectResponse($this->container->get('router')->generate('sylius_user_security_login'));
         }
 
         if (!$configuration->isHtmlRequest()) {
