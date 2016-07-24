@@ -2,11 +2,14 @@ imports:
     - { resource: @SyliusCoreBundle/Resources/config/app/sylius.yml }
     - { resource: @SyliusCoreBundle/Resources/config/app/payum.yml }
     - { resource: @SyliusCoreBundle/Resources/config/app/cmf.yml }
-    - { resource: @SyliusPaymentBundle/Resources/config/state-machine.yml }
-    - { resource: @SyliusShippingBundle/Resources/config/state-machine.yml }
-    - { resource: @SyliusOrderBundle/Resources/config/state-machine.yml }
-    - { resource: @SyliusInventoryBundle/Resources/config/state-machine.yml }
-    - { resource: @SyliusCoreBundle/Resources/config/state-machine.yml }
+# Removing these from this config file so we have our own explicit state machine files
+# In future we should consider dropping this file entirely and include / configure only what we need.
+# PW, 07/2016
+#    - { resource: @SyliusPaymentBundle/Resources/config/state-machine.yml }
+#    - { resource: @SyliusShippingBundle/Resources/config/state-machine.yml }
+#    - { resource: @SyliusOrderBundle/Resources/config/state-machine.yml }
+#    - { resource: @SyliusInventoryBundle/Resources/config/state-machine.yml }
+#    - { resource: @SyliusCoreBundle/Resources/config/state-machine.yml }
 
 twig:
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
