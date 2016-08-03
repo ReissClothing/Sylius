@@ -13,6 +13,7 @@ namespace Sylius\Component\Shipping\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
 use Sylius\Component\Resource\Model\TranslatableTrait;
@@ -65,12 +66,18 @@ class ShippingMethod implements ShippingMethodInterface
      */
     protected $rules;
 
+    /**
+     * @var Collection|ChannelInterface[]
+     */
+    protected $channels;
+
     public function __construct()
     {
         $this->initializeTranslationsCollection();
 
         $this->rules = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->channels = new ArrayCollection();
     }
 
     /**
@@ -227,6 +234,54 @@ class ShippingMethod implements ShippingMethodInterface
     {
         $rule->setMethod(null);
         $this->rules->removeElement($rule);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addChannel(ChannelInterface $channel)
+    {
+        $channel->addShippingMethod($this);
+
+        if (!$this->hasChannel($channel)) {
+            $this->channels->add($channel);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeChannel(ChannelInterface $channel)
+    {
+        $channel->removeShippingMethod($this);
+
+        if ($this->hasChannel($channel)) {
+            $this->channels->removeElement($channel);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasChannel(ChannelInterface $channel)
+    {
+        return $this->channels->contains($channel);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChannels()
+    {
+        return $this->channels;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setChannels(array $channels)
+    {
+        $this->channels = $channels;
     }
 
     /**
