@@ -12,6 +12,7 @@
 namespace Sylius\Component\Shipping\Model;
 
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
 use Sylius\Component\Resource\Model\ToggleableInterface;
@@ -114,4 +115,31 @@ interface ShippingMethodInterface extends
      * @param RuleInterface $rule
      */
     public function removeRule(RuleInterface $rule);
+
+    /**
+     * @param array $channels
+     */
+    public function setChannels(array $channels);
+
+    /**
+     * @return Collection|ChannelInterface[]
+     */
+    public function getChannels();
+
+    /**
+     * @param ChannelInterface $channel
+     *
+     * @return bool
+     */
+    public function hasChannel(ChannelInterface $channel);
+
+    /**
+     * @param ChannelInterface $channel
+     */
+    public function addChannel(ChannelInterface $channel);
+
+    /**
+     * @param ChannelInterface $channel
+     */
+    public function removeChannel(ChannelInterface $channel);
 }
