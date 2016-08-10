@@ -38,6 +38,7 @@ class TaxonomyContext extends DefaultContext
         $taxon = $this->getFactory('taxon')->createNew();
         $taxon->setName($name);
         $taxon->setCode($code);
+        $taxon->setPermalink($name);
 
         $this->getEntityManager()->persist($taxon);
         if ($flush) {
@@ -71,6 +72,11 @@ class TaxonomyContext extends DefaultContext
                     $child = $this->getFactory('taxon')->createNew();
                     $child->setName($childData[0]);
                     $child->setCode($childData[1]);
+                    if ($parent) {
+                        $child->setPermalink($parent->getPermalink() . '/' . $childData[0]);
+                    } else {
+                        $child->setPermalink($taxon->getPermalink() . '/' . $childData[0]);
+                    }
 
                     $children[$childData[0]] = $child;
                 }
@@ -105,6 +111,7 @@ class TaxonomyContext extends DefaultContext
             $taxon->setFallbackLocale($data['locale']);
 
             $taxon->setName($data['name']);
+            $taxon->setPermalink(isset($data['permalink']) ? $data['permalink'] : $data['name']);
         }
 
         $this->getEntityManager()->flush();
