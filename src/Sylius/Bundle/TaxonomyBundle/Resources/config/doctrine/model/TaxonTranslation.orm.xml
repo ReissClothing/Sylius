@@ -23,19 +23,27 @@
         </id>
         <field name="name" column="name" type="string" />
         <field name="slug" column="slug" type="string" unique="false">
+            <!-- We don't use slug either but it's not hurting us for now so... -->
             <gedmo:slug fields="name" unique="false" />
         </field>
         <field name="permalink" column="permalink" type="string" unique="false">
-            <gedmo:slug fields="name" unique="false" >
-                <gedmo:handler class="Sylius\Bundle\ResourceBundle\GedmoHandler\TranslationSlugHandler">
-                    <gedmo:handler-option name="relationField" value="translatable"/>
-                    <gedmo:handler-option name="relationParentRelationField" value="parent"/>
-                    <gedmo:handler-option name="parentFieldMethod" value="getPermalink"/>
-                    <gedmo:handler-option name="locale" value="locale"/>
-                    <gedmo:handler-option name="translate" value="translate"/>
-                    <gedmo:handler-option name="separator" value="/"/>
-                </gedmo:handler>
-            </gedmo:slug>
+            <!--
+                This is code ensures child taxons follow a hierarchical routing scheme that prefixes all
+                ancestors along with the leaf taxon's slug as a permalink.
+
+                We don't want this, we want more control over the permalink so will allow setting it directly
+                with the aid of validation and pre-filling based on the parent(s)   PW, 08/2016
+            -->
+            <!--<gedmo:slug fields="name" unique="false" >-->
+                <!--<gedmo:handler class="Sylius\Bundle\ResourceBundle\GedmoHandler\TranslationSlugHandler">-->
+                    <!--<gedmo:handler-option name="relationField" value="translatable"/>-->
+                    <!--<gedmo:handler-option name="relationParentRelationField" value="parent"/>-->
+                    <!--<gedmo:handler-option name="parentFieldMethod" value="getPermalink"/>-->
+                    <!--<gedmo:handler-option name="locale" value="locale"/>-->
+                    <!--<gedmo:handler-option name="translate" value="translate"/>-->
+                    <!--<gedmo:handler-option name="separator" value="/"/>-->
+                <!--</gedmo:handler>-->
+            <!--</gedmo:slug>-->
         </field>
         <field name="description" column="description" type="text" nullable="true" />
         <unique-constraints>
