@@ -14,6 +14,7 @@ namespace Sylius\Component\Metadata\Twig;
 use Sylius\Component\Metadata\Accessor\MetadataAccessorInterface;
 use Sylius\Component\Metadata\Model\Custom\Page;
 use Sylius\Component\Metadata\Model\Custom\PageMetadata;
+use Sylius\Component\Metadata\Model\MetadataInterface;
 use Sylius\Component\Metadata\Model\MetadataSubjectInterface;
 use Sylius\Component\Metadata\Renderer\MetadataRendererInterface;
 
@@ -80,7 +81,7 @@ class MetadataExtension extends \Twig_Extension
     {
         $metadataProperty = $this->metadataAccessor->getProperty($metadataSubject, $type, $propertyPath);
 
-        if (null === $metadataProperty) {
+        if (!($metadataProperty instanceof MetadataInterface)) {
             return null;
         }
 
