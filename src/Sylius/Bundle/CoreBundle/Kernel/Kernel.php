@@ -84,7 +84,7 @@ abstract class Kernel extends BaseKernel
             new \Sylius\Bundle\ApiBundle\SyliusApiBundle(),
 
 //            new \Sonata\BlockBundle\SonataBlockBundle(),
-            new \Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
+//            new \Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
 //            new \Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
 //            new \Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
             new \Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
@@ -94,7 +94,7 @@ abstract class Kernel extends BaseKernel
 
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            new \Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+//            new \Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
             new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),

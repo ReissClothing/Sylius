@@ -1,8 +1,8 @@
-cmf_core:
-    publish_workflow: true
-    persistence:
-        phpcr:
-            enabled: true
+#cmf_core:
+#    publish_workflow: true
+#    persistence:
+#        phpcr:
+#            enabled: true
 
 #cmf_block:
 #    persistence:
@@ -34,24 +34,24 @@ cmf_core:
 #        phpcr:
 #            media_basepath: /cms/medias
             
-cmf_routing:
-    chain:
-        routers_by_id:
-            router.default: 100
-            sylius.dynamic_router: 50
-            cmf_routing.dynamic_router: 20
-    dynamic:
-        generic_controller: cmf_content.controller:indexAction
-        persistence:
-            phpcr:
-                enabled: true
-                enable_initializer: true
-                route_basepath: /cms/routes
+#cmf_routing:
+#    chain:
+#        routers_by_id:
+#            router.default: 100
+#            sylius.dynamic_router: 50
+#            cmf_routing.dynamic_router: 20
+#    dynamic:
+#        generic_controller: cmf_content.controller:indexAction
+#        persistence:
+#            phpcr:
+#                enabled: true
+#                enable_initializer: true
+#                route_basepath: /cms/routes
 
-doctrine_cache:
-    providers:
-        phpcr_meta: %sylius.cache%
-        phpcr_nodes: %sylius.cache%
+#doctrine_cache:
+#    providers:
+#        phpcr_meta: %sylius.cache%
+#        phpcr_nodes: %sylius.cache%
 
 #cmf_create:
 #    security:
