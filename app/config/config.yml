@@ -67,13 +67,20 @@ doctrine:
                     string_functions:
                         MATCH: Sylius\Bundle\SearchBundle\Extension\Doctrine\MatchAgainstFunction
 
-doctrine_phpcr:
-    session:
-        backend: %phpcr_backend%
-        workspace: %phpcr_workspace%
-    odm:
-        auto_mapping: true
-        auto_generate_proxy_classes: %kernel.debug%
+
+cmf_routing:
+    dynamic:
+        generic_controller: cmf_content.controller:indexAction
+        persistence:
+            orm: ~
+
+#doctrine_phpcr:
+#    session:
+#        backend: %phpcr_backend%
+#        workspace: %phpcr_workspace%
+#    odm:
+#        auto_mapping: true
+#        auto_generate_proxy_classes: %kernel.debug%
 
 swiftmailer:
     transport: %mailer_transport%

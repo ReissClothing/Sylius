@@ -33,7 +33,7 @@
 #    persistence:
 #        phpcr:
 #            media_basepath: /cms/medias
-            
+
 #cmf_routing:
 #    chain:
 #        routers_by_id:
