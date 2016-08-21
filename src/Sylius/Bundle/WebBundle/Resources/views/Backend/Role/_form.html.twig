@@ -14,7 +14,7 @@
 
 <div class="form-group">
     {{ form_label(form.permissions) }}
-    <div class="col-lg-2">
+    <div class="col-lg-10">
         {% set level = 1 %}
         <ul class="list-unstyled" id="hierarchy-root">
             {% for permissionForm in form.permissions %}
@@ -22,7 +22,7 @@
             <li>
                 {% if currentLevel != level %}
         </ul>
-        <ul class="hierarchy-node list-unstyled level-{{ currentLevel }}" data-level="{{ currentLevel }}" style="width: 100%; margin-left: {{ currentLevel * 20 }}px">
+        <ul class="hierarchy-node list-unstyled level-{{ currentLevel }}" data-level="{{ currentLevel }}" style="width: 100%; margin-left: {{ currentLevel * 35 }}px">
             {% set level = currentLevel %}
             {% endif %}
             {{ form_widget(permissionForm) }}
