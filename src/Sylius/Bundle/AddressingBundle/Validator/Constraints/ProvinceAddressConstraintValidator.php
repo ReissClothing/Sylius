@@ -24,12 +24,12 @@ class ProvinceAddressConstraintValidator extends ConstraintValidator
     /**
      * @var RepositoryInterface
      */
-    private $countryRepository;
+    protected $countryRepository;
 
     /**
      * @var RepositoryInterface
      */
-    private $provinceRepository;
+    protected $provinceRepository;
 
     /**
      * @param RepositoryInterface $countryRepository
