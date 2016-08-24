@@ -82,19 +82,23 @@
                 <option name="groups">sylius</option>
             </constraint>
         </property>
-        <property name="postcode">
-            <constraint name="NotBlank">
-                <option name="message">sylius.address.postcode.not_blank</option>
-                <option name="groups">sylius</option>
-            </constraint>
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">255</option>
-                <option name="minMessage">sylius.address.postcode.min_length</option>
-                <option name="maxMessage">sylius.address.postcode.max_length</option>
-                <option name="groups">sylius</option>
-            </constraint>
-        </property>
+        <!--
+            This needs to be optional by country, disabling here in favour of conditional implementation in Reiss
+            project. PW 08/2016
+        -->
+        <!--<property name="postcode">-->
+            <!--<constraint name="NotBlank">-->
+                <!--<option name="message">sylius.address.postcode.not_blank</option>-->
+                <!--<option name="groups">sylius</option>-->
+            <!--</constraint>-->
+            <!--<constraint name="Length">-->
+                <!--<option name="min">2</option>-->
+                <!--<option name="max">255</option>-->
+                <!--<option name="minMessage">sylius.address.postcode.min_length</option>-->
+                <!--<option name="maxMessage">sylius.address.postcode.max_length</option>-->
+                <!--<option name="groups">sylius</option>-->
+            <!--</constraint>-->
+        <!--</property>-->
     </class>
 
     <class name="Sylius\Component\Addressing\Model\Country">

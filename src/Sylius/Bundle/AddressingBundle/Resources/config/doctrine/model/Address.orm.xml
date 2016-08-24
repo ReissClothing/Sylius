@@ -38,7 +38,7 @@
         <field name="city" column="city" type="string">
             <gedmo:versioned />
         </field>
-        <field name="postcode" column="postcode" type="string">
+        <field name="postcode" column="postcode" type="string" nullable="true">
             <gedmo:versioned />
         </field>
 
