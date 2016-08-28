@@ -68,8 +68,10 @@ class CachedMetadataAccessor implements MetadataAccessorInterface
     {
         $cacheKey = $this->getCacheKey($metadataSubject, $type, $propertyPath);
 
-        if ($this->cache->contains($cacheKey)) {
-            return $this->cache->fetch($cacheKey);
+        $cachedProperty = $this->cache->fetch($cacheKey);
+
+        if (false !== $cachedProperty) {
+            return $cachedProperty;
         }
 
         $metadata = $this->metadataAccessor->getProperty($metadataSubject, $type, $propertyPath);

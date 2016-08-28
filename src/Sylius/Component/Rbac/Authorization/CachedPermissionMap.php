@@ -56,8 +56,12 @@ class CachedPermissionMap implements PermissionMapInterface
      */
     public function hasPermission(RoleInterface $role, $permissionCode)
     {
-        if ($this->cache->contains($this->getCacheKey($role))) {
-            return in_array($permissionCode, $this->cache->fetch($this->getCacheKey($role)));
+        $key = $this->getCacheKey($role);
+
+        $permissionsCache = $this->cache->fetch($key);
+
+        if (false !== $permissionsCache) {
+            return in_array($permissionCode, $permissionsCache);
         }
 
         $permissions = $this->map->getPermissions($role);
