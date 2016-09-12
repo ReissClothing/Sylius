@@ -67,7 +67,11 @@ class CouponsEligibilityChecker extends BaseCouponsEligibilityChecker
         }
 
         if (null === $customer) {
-            return false;
+            // If we don't have a customer yet then we're probably at the basket stage.
+            // In which case we don't know yet whether they're elligible or not.
+            // We have to allow this here. Later on the customer will be known and this code will
+            // be rerun and validated below.  PW 09/2016
+            return true;
         }
 
         $placedOrdersNumber = $this->orderRepository->countByCustomerAndCoupon($customer, $coupon);

@@ -20,10 +20,11 @@ class Instruction implements InstructionInterface
      * @var int
      */
     protected $amount = 5;
+
     /**
      * @var int
      */
-    protected $codeLength = 6;
+    protected $codeLength = 8;
 
     /**
      * @var \DateTime
