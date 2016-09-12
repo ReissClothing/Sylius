@@ -75,7 +75,11 @@ final class MetadataProvider implements MetadataProviderInterface
                 continue;
             }
 
-            $parents[] = $metadataContainer->getMetadata();
+            $metadata = $metadataContainer->getMetadata();
+
+            if ($metadata) {
+                $parents[] = $metadata;
+            }
         }
 
         if (null === $baseMetadata) {
