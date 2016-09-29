@@ -123,7 +123,7 @@ class CartProvider implements CartProviderInterface
         if ($cartIdentifier !== null) {
             $cart = $this->cartRepository->find($cartIdentifier);
 
-            if ($cart !== null) {
+            if ($cart !== null && !$cart->isCompleted()) {
                 return $cart;
             }
         }
