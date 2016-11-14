@@ -374,8 +374,9 @@
         </service>
         <service id="sylius.listener.order_payment" class="%sylius.listener.order_payment.class%">
             <argument type="service" id="sylius.order_processing.payment_processor" />
-            <tag name="kernel.event_listener" event="sylius.checkout.payment.initialize" method="createOrderPayment" />
-            <tag name="kernel.event_listener" event="sylius.checkout.finalize.pre_complete" method="updateOrderPayment" />
+            <!-- We create payments explicitly through the Reiss PaymentStep, so this conflicts. -->
+            <!--<tag name="kernel.event_listener" event="sylius.checkout.payment.initialize" method="createOrderPayment" />-->
+            <!--<tag name="kernel.event_listener" event="sylius.checkout.finalize.pre_complete" method="updateOrderPayment" />-->
         </service>
         <service id="sylius.listener.order_channel" class="%sylius.listener.order_channel.class%">
             <argument type="service" id="sylius.context.channel" />
