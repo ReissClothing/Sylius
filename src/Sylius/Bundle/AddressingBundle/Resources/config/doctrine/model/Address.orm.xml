@@ -35,7 +35,7 @@
         <field name="company" column="company" type="string" nullable="true">
             <gedmo:versioned />
         </field>
-        <field name="city" column="city" type="string">
+        <field name="city" column="city" type="string" nullable="true">
             <gedmo:versioned />
         </field>
         <field name="postcode" column="postcode" type="string" nullable="true">
