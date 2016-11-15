@@ -11,6 +11,8 @@
 
 namespace Sylius\Component\Attribute\Model;
 
+use Sylius\Bundle\AttributeBundle\Form\Type\AttributeType\Configuration\OptionListAttributeConfigurationType;
+
 /**
  * @author Paweł Jędrzejewski <pawel@sylius.org>
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
@@ -66,6 +68,11 @@ class AttributeValue implements AttributeValueInterface
      * @var \DateTime
      */
     protected $date;
+
+    /**
+     * @var array
+     */
+    protected $array;
 
     /**
      * {@inheritdoc}
@@ -257,6 +264,50 @@ class AttributeValue implements AttributeValueInterface
     {
         $this->date = $date;
     }
+
+    /**
+     * @return array
+     */
+    public function getArray()
+    {
+        return $this->array;
+    }
+
+    /**
+     * @param array $array
+     */
+    public function setArray($array)
+    {
+        $this->array = $array;
+    }
+
+    /**
+     * It's possible that someone changes the type of an OptionList from Multiple to Dropdown.
+     * If so the underlying data will be wrong for the Symfony form and it will blow up.
+     *
+     * This method ensures the value is actually correct based on the type of OptionList
+     *
+     * @param string $format
+     */
+    public function ensureValidOptionListValue($format)
+    {
+        $value = $this->getValue();
+
+        if (OptionListAttributeConfigurationType::FORMAT_MULTIPLE_SELECTION === $format) {
+            if (is_string($value)) {
+                $this->setValue([$value]);
+            }
+        } else {
+            if (is_string($value)) {
+                $this->setValue($value);
+            } elseif (0 === count($value)) {
+                $this->setValue(null);
+            } elseif (0 < count($value)) {
+                $this->setValue($value[0]);
+            }
+        }
+    }
+
     /**
      * @throws \BadMethodCallException
      */

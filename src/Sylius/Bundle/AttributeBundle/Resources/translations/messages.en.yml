@@ -15,6 +15,7 @@ sylius:
             datetime: Datetime
             integer: Integer
             percent: Percent
+            option_list: Option list
             text: Text
             textarea: Textarea
             title: Attribute types

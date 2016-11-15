@@ -20,3 +20,21 @@ div.collection-item .collection-box.unique-field,
 div.collection-item .unique-field [data-form-collection="remove"] {
     top: 6px;
 }
+
+.option-list-remove-cross {
+    margin-right: 30px;
+    margin-top: 5px;
+}
+
+.option-list-value {
+    margin-left: -15px;
+}
+
+.configuration-wrapper .form-group {
+    margin-left  : -8px;
+    margin-right : -8px;
+}
+
+.attribute-values-title {
+    margin-left : 235px;
+}

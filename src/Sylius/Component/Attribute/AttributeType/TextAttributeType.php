@@ -40,6 +40,8 @@ class TextAttributeType implements AttributeTypeInterface
     }
 
     /**
+     * This method is not called anywhere, the validation should be done in the form
+     *
      * {@inheritdoc}
      */
     public function validate(AttributeValueInterface $attributeValue, ExecutionContextInterface $context, array $configuration)

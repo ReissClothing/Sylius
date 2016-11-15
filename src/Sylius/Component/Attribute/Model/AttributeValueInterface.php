@@ -24,6 +24,7 @@ interface AttributeValueInterface extends ResourceInterface
     const STORAGE_DATETIME = 'datetime';
     const STORAGE_INTEGER = 'integer';
     const STORAGE_FLOAT = 'float';
+    const STORAGE_ARRAY = 'array';
 
     /**
      * @return AttributeSubjectInterface
@@ -73,4 +74,9 @@ interface AttributeValueInterface extends ResourceInterface
      * @return string
      */
     public function getType();
+
+    /**
+     * @param string $format
+     */
+    public function ensureValidOptionListValue($format);
 }

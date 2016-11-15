@@ -40,6 +40,10 @@
         <parameter key="sylius.attribute_type.date.class">Sylius\Component\Attribute\AttributeType\DateAttributeType</parameter>
         <parameter key="sylius.form.type.attribute_type.date.class">Sylius\Bundle\AttributeBundle\Form\Type\AttributeType\DateAttributeType</parameter>
         <parameter key="sylius.form.type.attribute_type.configuration.date.class">Sylius\Bundle\AttributeBundle\Form\Type\AttributeType\Configuration\DateAttributeConfigurationType</parameter>
+
+        <parameter key="sylius.attribute_type.option_list.class">Sylius\Component\Attribute\AttributeType\OptionListAttributeType</parameter>
+        <parameter key="sylius.form.type.attribute_type.option_list.class">Sylius\Bundle\AttributeBundle\Form\Type\AttributeType\OptionListAttributeType</parameter>
+        <parameter key="sylius.form.type.attribute_type.configuration.option_list.class">Sylius\Bundle\AttributeBundle\Form\Type\AttributeType\Configuration\OptionListAttributeConfigurationType</parameter>
     </parameters>
 
     <services>
@@ -99,6 +103,16 @@
         </service>
         <service id="sylius.form.type.attribute_type.configuration.date" class="%sylius.form.type.attribute_type.configuration.date.class%">
             <tag name="form.type" alias="sylius_attribute_type_configuration_date" />
+        </service>
+
+        <service id="sylius.attribute_type.option_list" class="%sylius.attribute_type.option_list.class%">
+            <tag name="sylius.attribute.type" attribute-type="option_list" label="Option List" />
+        </service>
+        <service id="sylius.form.type.attribute_type.option_list" class="%sylius.form.type.attribute_type.option_list.class%">
+            <tag name="form.type" alias="sylius_attribute_type_option_list" />
+        </service>
+        <service id="sylius.form.type.attribute_type.configuration.option_list" class="%sylius.form.type.attribute_type.configuration.option_list.class%">
+            <tag name="form.type" alias="sylius_attribute_type_configuration_option_list" />
         </service>
     </services>
 
