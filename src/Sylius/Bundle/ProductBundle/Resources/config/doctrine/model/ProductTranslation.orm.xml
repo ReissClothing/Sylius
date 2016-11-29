@@ -18,8 +18,12 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="name" column="name" type="string" />
-        <field name="slug" column="slug" type="string" unique="true" />
+        <unique-constraints>
+            <unique-constraint columns="slug,locale" name="slug_locale_uniq_ind" />
+        </unique-constraints>
+
+        <field name="name" column="name" type="string" nullable="true"/>
+        <field name="slug" column="slug" type="string" nullable="true"/>
         <field name="description" column="description" type="text" nullable="true" />
         <field name="metaKeywords" column="meta_keywords" type="string" nullable="true" />
         <field name="metaDescription" column="meta_description" type="string" nullable="true" />
