@@ -293,7 +293,7 @@ class AttributeValue implements AttributeValueInterface
     {
         $value = $this->getValue();
 
-        if (OptionListAttributeConfigurationType::FORMAT_MULTIPLE_SELECTION === $format) {
+        if (OptionListAttributeConfigurationType::MULTI_VALUE === $format) {
             if (is_string($value)) {
                 $this->setValue([$value]);
             }

@@ -16,6 +16,7 @@ use Prophecy\Argument;
 use Sylius\Bundle\AttributeBundle\Form\EventSubscriber\BuildAttributeValueFormSubscriber;
 use Sylius\Component\Attribute\AttributeType\CheckboxAttributeType;
 use Sylius\Component\Attribute\AttributeType\DateAttributeType;
+use Sylius\Component\Attribute\Configure\OptionListAttributeFormOptionConfigurer;
 use Sylius\Component\Attribute\Model\AttributeInterface;
 use Sylius\Component\Attribute\Model\AttributeValueInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -32,9 +33,9 @@ use Symfony\Component\Form\FormEvents;
  */
 class BuildAttributeValueFormSubscriberSpec extends ObjectBehavior
 {
-    function let(RepositoryInterface $attributeRepository)
+    function let(RepositoryInterface $attributeRepository, OptionListAttributeFormOptionConfigurer $optionListAttributeFormOptionConfigurer)
     {
-        $this->beConstructedWith($attributeRepository);
+        $this->beConstructedWith($attributeRepository, $optionListAttributeFormOptionConfigurer);
     }
 
     function it_is_initialized()
