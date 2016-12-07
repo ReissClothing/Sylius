@@ -11,8 +11,8 @@
 
 namespace Sylius\Bundle\AttributeBundle\Form\EventSubscriber;
 
-use Sylius\Bundle\AttributeBundle\Form\Type\AttributeType\Configuration\OptionListAttributeConfigurationType;
 use Sylius\Component\Attribute\AttributeType\OptionListAttributeType;
+use Sylius\Component\Attribute\Configure\OptionListAttributeFormOptionConfigurer;
 use Sylius\Component\Attribute\Model\AttributeInterface;
 use Sylius\Component\Attribute\Model\AttributeValue;
 use Sylius\Component\Attribute\Model\AttributeValueInterface;
@@ -33,11 +33,18 @@ class BuildAttributeValueFormSubscriber implements EventSubscriberInterface
     protected $attributeRepository;
 
     /**
-     * @param RepositoryInterface $attributeRepository
+     * @var OptionListAttributeFormOptionConfigurer
      */
-    public function __construct(RepositoryInterface $attributeRepository)
+    protected $optionListAttributeFormOptionConfigurer;
+
+    /**
+     * @param RepositoryInterface $attributeRepository
+     * @param OptionListAttributeFormOptionConfigurer $optionListAttributeFormOptionConfigurer
+     */
+    public function __construct(RepositoryInterface $attributeRepository, OptionListAttributeFormOptionConfigurer $optionListAttributeFormOptionConfigurer)
     {
         $this->attributeRepository = $attributeRepository;
+        $this->optionListAttributeFormOptionConfigurer = $optionListAttributeFormOptionConfigurer;
     }
 
     /**
@@ -95,24 +102,7 @@ class BuildAttributeValueFormSubscriber implements EventSubscriberInterface
         $options = ['auto_initialize' => false, 'label' => $attribute->getName()];
 
         if (OptionListAttributeType::TYPE === $attribute->getType()) {
-            $configuration = $attribute->getConfiguration();
-
-            if ($attributeValue) {
-                $attributeValue->ensureValidOptionListValue($configuration['format']);
-            }
-
-            $options['empty_value'] = '-- None --';
-
-            if (OptionListAttributeConfigurationType::FORMAT_MULTIPLE_SELECTION === $configuration['format']) {
-                $options['multiple'] = true;
-            }
-
-            $choices = [];
-            foreach ($configuration['values'] as $value) {
-                $choices[$value['value']] = $value['value'];
-            }
-
-            $options['choices'] = $choices;
+            $options = array_merge($options, $this->optionListAttributeFormOptionConfigurer->getOptionsToOptionListType($attribute, $attributeValue));
         }
 
         $form->add('value', 'sylius_attribute_type_'.$attribute->getType(), $options);

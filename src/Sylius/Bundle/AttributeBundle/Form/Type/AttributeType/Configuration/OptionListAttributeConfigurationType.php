@@ -21,8 +21,8 @@ use Symfony\Component\Form\FormEvents;
  */
 class OptionListAttributeConfigurationType extends AbstractType
 {
-    const FORMAT_DROPDOWN           = 'dropdown';
-    const FORMAT_MULTIPLE_SELECTION = 'multiple_selection';
+    const SINGLE_VALUE = 'single_value';
+    const MULTI_VALUE = 'multi_value';
 
     /**
      * {@inheritdoc}
@@ -32,13 +32,14 @@ class OptionListAttributeConfigurationType extends AbstractType
         $builder
             ->add('format', 'choice', [
                 'choices' => [
-                    self::FORMAT_DROPDOWN           => 'Dropdown',
-                    self::FORMAT_MULTIPLE_SELECTION => 'Multiple selection',
+                    self::SINGLE_VALUE => 'Single Value',
+                    self::MULTI_VALUE => 'Multi Value',
                 ],
                 'attr' => [
                     'class' => 'js-format-selector'
                 ],
             ])
+            ->add('expanded', 'checkbox')
             ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
                 $form = $event->getForm();
                 $attr = $form->getParent()->getNormData();
