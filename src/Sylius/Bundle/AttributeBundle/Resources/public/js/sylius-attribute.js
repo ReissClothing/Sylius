@@ -60,6 +60,12 @@
                 dataType: 'html'
             }).done(function(data){
                 var finalData = modifyAttributeForms($(data));
+
+                // Uncheck all checkboxes in case the overlay is re-used to add more attributes
+                form.find('input:checked').each(function() {
+                    $(this).removeAttr('checked');
+                });
+
                 $('#attributes .collection-list').append(finalData);
                 $('#attributes-modal').modal('hide');
                 modifyModalOnItemDelete();
