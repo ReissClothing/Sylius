@@ -223,11 +223,12 @@ class AddressController extends FOSRestController
      */
     protected function findUserAddressOr404($id)
     {
+        /** @var AddressInterface $address */
         if (!$address = $this->getAddressRepository()->find($id)) {
             throw new NotFoundHttpException('Requested address does not exist.');
         }
 
-        if (!$this->getCustomer()->hasAddress($address)) {
+        if (!$this->getCustomer() || !$this->getCustomer()->hasAddress($address)) {
             throw new AccessDeniedException();
         }
 
