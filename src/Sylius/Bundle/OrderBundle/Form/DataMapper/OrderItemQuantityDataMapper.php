@@ -52,6 +52,12 @@ class OrderItemQuantityDataMapper implements DataMapperInterface
      */
     public function mapFormsToData($forms, &$data)
     {
+        if (empty($data)) {
+            // Avoid a fatal error on trying to map data to null below.
+            // Not 100% sure why/how this happens so will see what this change does... PW 12/2016
+            return;
+        }
+
         $formsOtherThanQuantity = [];
         foreach ($forms as $key => $form) {
             if ('quantity' === $form->getName()) {
