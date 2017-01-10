@@ -1,0 +1,5 @@
+reiss:
+    backend:
+        menu:
+            sidebar:
+                wishlist: Wishlist

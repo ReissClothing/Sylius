@@ -1,0 +1,83 @@
+{% extends 'ReissWebBundle:Frontend:layout.html.twig' %}
+
+{% import 'SyliusWebBundle:Frontend/Macros:buttons.html.twig' as buttons %}
+{% from 'SyliusWebBundle:Frontend/Macros:misc.html.twig' import pagination %}
+{% from 'ReissWishlistBundle:Frontend/Wishlist:macros.html.twig' import list %}
+{% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+{% from 'ReissWishlistBundle:Frontend/Product:macros.html.twig' import productPrice %}
+
+{% block content %}
+
+    <div class="breadcrumb visible-medium">
+        <div class="container">
+            <div class="grid">
+                <div class="grid__item grid-6--medium"><a href="">Reiss</a> / <span>Wishlist</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-heading--bordered-bottom">
+            <h1 class="page-heading__title text--center">{{ wishlist.name }}</h1>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="wishlist-header">
+            <div class="grid">
+                <div class="grid__item grid-8--small grid-4--medium">
+                    <div class="product-view-switch ">
+                        <a class="product-view-switch__link active js-switch-view product-view" href="">Product <span class="visible-medium">View</span></a>
+                        <span class="product-view-switch__link">/</span> <a
+                                class="product-view-switch__link js-switch-view outfit-view">Outfit <span
+                                    class="visible-medium">View</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wishlist-body">
+            <div class="grid--table">
+                {% for wishlistItem in wishlist.wishlistItems %}
+                    <div class="grid__item grid-3--large grid-4--medium grid-6--small"
+                         id="variant-{{ wishlistItem.variant.id }}">
+                        <div class="media-wishlistbox">
+                            <figure class="media-wishlistbox__img--bordered">
+                                <a class="js-fancybox fancybox.ajax" href="{{ path('reiss_product_detail_wishlist', { 'wishlistItemid' : wishlistItem.id }) }}">
+                                    <img class="img--full" src="{{ reiss_product_outfit_image(wishlistItem.variant.product, 250, 287) }}" alt=""/>
+                                </a>
+                            </figure>
+                            <h2 class="media-wishlistbox__title">{{ wishlistItem.variant.product.name }} <strong class="media-wishlistbox__pricebut float--right visible-medium">{{ productPrice(wishlistItem.variant.product) }}</strong></h2>
+
+                            <div class="grid">
+                                <div class="grid__item grid-6--small">
+                                    <div class="media-wishlistbox-variants ">
+                                        <span class="full--width inline--block">{{ wishlistItem.variant.product.colour.name }}</span>
+                                        <span class="full--width inline--block">SIZE: {{ wishlistItem.variant.size.presentation }}</span>
+                                    </div>
+                                </div>
+                                {#<div class="grid__item grid-6--small text--right">#}
+                                {#<div class="media-wishlistbox-actions ">#}
+                                {#<a class="media-wishlistbox-actions__link js-fancybox fancybox.ajax" data-fancybox-type="ajax" href="{{  path('reiss_product_detail_wishlist', {'id': wishlistItem.variant.product.id}) }}">View /Edit</a>#}
+                                {#</div>#}
+                                {#</div>#}
+                            </div>
+                            {#<a type="button" class="close wishlist-product__remove" data-dismiss="modal" aria-hidden="true" href="{{ path('reiss_remove_wishlist_product', {'wishlistItemId': wishlistItem.id}) }}">&times;</a>{{ wishlistItem.variant.product.name }}#}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="wishlist-toolbar">
+            <div class="grid">
+                <div class="grid__item grid-12--small grid-3--medium">
+                    <a class="btn btn--primary full--width" href="">Add List To Bag</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

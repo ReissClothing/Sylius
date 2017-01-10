@@ -1,0 +1,25 @@
+{% extends 'ReissWebBundle:Frontend:layout.html.twig' %}
+
+{% import 'SyliusWebBundle:Frontend/Macros:buttons.html.twig' as buttons %}
+{% from 'SyliusWebBundle:Frontend/Macros:misc.html.twig' import pagination %}
+{% from 'ReissWishlistBundle:Frontend/Wishlist:macros.html.twig' import list %}
+
+{% block content %}
+    <div class="breadcrumb visible-medium">
+        <div class="container">
+            <div class="grid">
+                <div class="grid__item grid-6--medium"><a href="">Reiss</a> / <span>Wishlist</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-heading--bordered visible-small-up">
+            <h1 class="page-heading__title h2-size text--center">Wishlist</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="h2-size text--center">The wishlist you're looking for no longer exists</h1>
+    </div>
+{% endblock %}

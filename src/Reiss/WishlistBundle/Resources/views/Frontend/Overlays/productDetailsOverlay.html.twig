@@ -1,0 +1,143 @@
+{% from 'ReissWishlistBundle:Frontend/Product:macros.html.twig' import productPrice %}
+{% from 'ReissWebBundle:Frontend/Social:macros.html.twig' import social_share_title, social_list_item %}
+
+{% set addToCartForm = sylius_cart_form({ 'product' : product }) %}
+
+<div class="modal product-overlay {% block overlayClassName %}{% endblock %}">
+    <div class="modal__inner">
+
+        <div class="modal__header no--padding">
+            <div class="grid">
+                <div class="grid__item grid-4--medium grid-6--small">
+                    <a href="{{ path(product) }}" class="modal__link">
+                        {{ 'reiss.frontend.overlay.view_product_page'|trans }}
+                    </a>
+                </div>
+                <div class="grid__item grid-4--medium visible-medium text--center">
+                    <h2 class="modal__title">
+                        {{ 'reiss.frontend.overlay.product_details'|trans }}
+                    </h2>
+                </div>
+                <div class="visible-small-only">
+                    <div class="grid__item grid-6--small text--right">
+                        <a class="modal__link modal__close fancybox-close"
+                           href="{% block overlayCloseHref %}{{ path(product) }}{% endblock %}">
+                            {{ 'reiss.frontend.overlay.close'|trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal__body">
+            <div class="grid">
+
+                <div class="grid__item grid-12--small grid-6--medium text--center modal__image-panel">
+                    <div class="product-gallery__imgmain clearfix">
+                        <div class="carousel-wrap">
+                            <button class="product-gallery__prev js-product-gallery-prev js-carousel-prev">
+                                <i class="icon icon-chevron-left"></i>
+                                <span class="visible-medium-inline-block"></span>
+                            </button>
+                            <div class="carousel js-carousel js-carousel-slick"
+                                 data-slick='{"appendArrows": false, "focusOnSelect": false, "centerMode": false, "rows": 1, "slidesPerRow": 1, "slidesToShow": 1, "slidesToScroll": 1, "mobileFirst": true}'>
+                                {% for imageVersion in product.imageVersions %}
+                                    <div class="product-gallery__imgholder carousel-slide">
+                                        <figure class="inline--block">
+                                            <img class="img--full img-lazy img--bordered" {% if loop.first %}src{% else %}data-lazy{% endif %}="{{ reiss_product_image(product, imageVersion, 487, 558) }}" width="345" height="392"/>
+                                        </figure>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button class="product-gallery__next js-product-gallery-next js-carousel-next">
+                                <i class="icon icon-chevron-right"></i>
+                                <span class="visible-medium-inline-block"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid__item grid-12--small grid-6--medium text--center modal__product-info-panel">
+                    <div class="modal__product-info">
+                        <h2 class="h1-size" title="{{ product.name }}">{{ product.name }}</h2>
+                        <p class="product__desc sans">{{ product.shortDescription }}</p>
+                        <p class="product__desc sans">{{ product.colour.name }}</p>
+                        {{ productPrice(product) }}
+                        <div class="js-product-actions-overlay">
+                            <form action="{{ path('sylius_cart_item_add', { 'id' : product.id }) }}" method="post" novalidate>
+
+                                <div class="is--hidden">
+                                    {{ form_row(addToCartForm.quantity, { 'attr' : { 'class' : 'center-text' },
+                                        'empty_value' : '1' }) }}
+                                </div>
+                                {{ form_widget(addToCartForm._token) }}
+
+                                {% block productAttributes %}
+                                    <div class="product-attributes">
+                                        <div class="product-colors inline--block text--center">
+                                            {% include 'ReissWebBundle:Frontend/Overlays/Product:colours.html.twig' with {
+                                            'selectedProduct' : product } %}
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="product-sizes inline--block text--center form-field">
+                                            {% include 'ReissWebBundle:Frontend/Product:sizes.html.twig' with {
+                                            'form' : addToCartForm } %}
+                                        </div>
+                                    </div>
+                                {% endblock %}
+
+                                {% block actionButtons %}
+                                    <div class="margin-b-30 padding-t-30">
+                                        {% if reiss_product_is_available_to_buy(product) %}
+                                            <button type="submit" class="btn btn--primary inline--block add-to-cart-button
+                                js-add-to-bag" data-action="bag" formaction="{{ path('sylius_cart_item_add', {
+                                                'id' : product.id }) }}">{{ 'reiss.frontend.product.add_to_bag'|trans }}
+                                            </button>
+                                        {% else %}
+                                            <button disabled="disabled" class="btn btn--primary btn--inactive inline--block">
+                                                {{ 'sylius.out_of_stock'|trans }}
+                                            </button>
+                                        {% endif %}
+                                        <button type="button" data-action="wishlist" class="btn btn--secondary no--margin-b add-to-wishlist-button {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %} js-add-to-wishlist {% endif %}" formaction="{{ path('reiss_wishlist_add_product', {'id' : product.id}) }}">{{ 'reiss.frontend.wishlist.button.add'|trans }}</button>
+                                    </div>
+                                {% endblock %}
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal__social bordered--top">
+                        <div class="social-bar-wrap text--center full--width margin-t-10">
+                            <div class="social-bar clearfix addthis_toolbox addthis_default_style">
+                                <ul>
+                                    {{ social_list_item('email') }}
+                                    {{ social_list_item('facebook') }}
+                                    {{ social_list_item('twitter') }}
+                                    {{ social_list_item('google') }}
+                                    {{ social_list_item('pinterest', 'pinterest_share') }}
+                                    {{ social_list_item('tumblr') }}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal__footer hidden-medium-up bordered--top">
+            <div class="grid padding-t-15">
+                <div class="grid__item grid-6--medium grid-6--small">
+                    <a href="{{ path(product) }}" class="modal__link btn--btnlink">
+                        {{ 'reiss.frontend.overlay.view_product_page'|trans }}
+                    </a>
+                </div>
+                <div class="grid__item grid-6--medium grid-6--small text--right">
+                    <a class="modal__link modal__footer-close fancybox-close"
+                       href="{{ block('overlayCloseHref') }}">
+                        {{ 'reiss.frontend.overlay.close'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

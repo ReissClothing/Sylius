@@ -1,0 +1,42 @@
+Reiss\WishlistBundle\Entity\WishlistItem:
+    type: entity
+    repositoryClass: Reiss\WishlistBundle\Entity\Repository\WishlistItemRepository
+    table: reiss_wishlist_item
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        position:
+            type: integer
+            column: position_product
+            gedmo:
+                - sortablePosition
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+            column: created_at
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+            column: update_at
+    manyToOne:
+        wishlist:
+            targetEntity: Reiss\WishlistBundle\Entity\Wishlist
+            inversedBy: wishlistItems
+            joinColumn:
+                name: wishlist
+                referencedColumnName: id
+                nullable: false
+            gedmo:
+                - sortableGroup
+        variant:
+            targetEntity: Reiss\ProductBundle\Entity\ProductVariant
+            joinColumn:
+                name: variant
+                referencedColumnName: id
+                nullable: false

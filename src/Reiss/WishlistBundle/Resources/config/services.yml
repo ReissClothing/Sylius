@@ -1,0 +1,26 @@
+services:
+    reiss.entity_manager.wishlist:
+        class: Reiss\WishlistBundle\Entity\Manager\WishlistManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - Reiss\WishlistBundle\Entity\Wishlist
+            - "@reiss.entity_manager.wishlist_item"
+            - "@reiss.repository.wishlist"
+            - "@translator"
+
+    reiss.entity_manager.wishlist_item:
+        class: Reiss\WishlistBundle\Entity\Manager\WishlistItemManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - Reiss\WishlistBundle\Entity\WishlistItem
+
+    reiss.wishlist_statistics.helper:
+        class: Reiss\WishlistBundle\Helper\StatisticsHelper
+        arguments:
+            - "@reiss.repository.wishlist"
+            - "@reiss.repository.wishlist_item"
+
+    reiss.wishlist_frontend.helper:
+        class: Reiss\WishlistBundle\Helper\FrontendHelper
+        arguments:
+            - "@router"
