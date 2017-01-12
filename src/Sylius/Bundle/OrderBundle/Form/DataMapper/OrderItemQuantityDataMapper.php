@@ -31,12 +31,12 @@ class OrderItemQuantityDataMapper implements DataMapperInterface
 
     /**
      * @param OrderItemQuantityModifierInterface $orderItemQuantityModifier
-     * @param DataMapperInterface $propertyPathDataMapper
+     * @param DataMapperInterface                $propertyPathDataMapper
      */
     public function __construct(OrderItemQuantityModifierInterface $orderItemQuantityModifier, DataMapperInterface $propertyPathDataMapper)
     {
         $this->orderItemQuantityModifier = $orderItemQuantityModifier;
-        $this->propertyPathDataMapper = $propertyPathDataMapper;
+        $this->propertyPathDataMapper    = $propertyPathDataMapper;
     }
 
     /**
@@ -60,8 +60,7 @@ class OrderItemQuantityDataMapper implements DataMapperInterface
 
         $formsOtherThanQuantity = [];
         foreach ($forms as $key => $form) {
-            if ('quantity' === $form->getName()) {
-                $targetQuantity = $form->getData();
+            if ('quantity' === $form->getName() && $targetQuantity = $form->getData()) {
                 $this->orderItemQuantityModifier->modify($data, $targetQuantity);
 
                 continue;
